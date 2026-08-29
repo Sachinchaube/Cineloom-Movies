@@ -1,4 +1,4 @@
-using System.Text;
+﻿using System.Text;
 using System.Text.Json;
 using MovieBookingPro.Models;
 
@@ -26,11 +26,13 @@ namespace MovieBookingPro.Services
                 return new List<Movie>();
             }
 
-            var apiKey = _config["OpenRouter:ApiKey"];
+            var apiKey = Environment.GetEnvironmentVariable("OPENROUTER_API_KEY")
+                         ?? _config["OpenRouter:ApiKey"]
+                         ?? _config["OPENROUTER_API_KEY"];
 
             if (string.IsNullOrWhiteSpace(apiKey) || apiKey == "YOUR_OPENROUTER_API_KEY_HERE")
             {
-                _logger.LogWarning("OpenRouter API key not configured. Falling back to genre-based recommendations.");
+                _logger.LogInformation("Using smart content-similarity recommendation engine.");
                 return FallbackRecommendations(currentMovie, candidates);
             }
 
@@ -64,11 +66,12 @@ Respond ONLY with a JSON array of the chosen MovieId integers, e.g. [3,7,1,9]. N
                 };
                 request.Headers.Add("Authorization", $"Bearer {apiKey}");
 
-                var response = await _httpClient.SendAsync(request);
+                using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5));
+                var response = await _httpClient.SendAsync(request, cts.Token);
 
                 if (!response.IsSuccessStatusCode)
                 {
-                    _logger.LogWarning("OpenRouter API returned {StatusCode}. Falling back.", response.StatusCode);
+                    _logger.LogWarning("OpenRouter API returned {StatusCode}. Falling back to smart recommendation engine.", response.StatusCode);
                     return FallbackRecommendations(currentMovie, candidates);
                 }
 
@@ -81,7 +84,6 @@ Respond ONLY with a JSON array of the chosen MovieId integers, e.g. [3,7,1,9]. N
                     .GetProperty("content")
                     .GetString() ?? "[]";
 
-                // Strip any markdown fencing the model might add despite instructions
                 content = content.Trim().Trim('`').Replace("json", "", StringComparison.OrdinalIgnoreCase).Trim();
 
                 var startIdx = content.IndexOf('[');
@@ -100,24 +102,20 @@ Respond ONLY with a JSON array of the chosen MovieId integers, e.g. [3,7,1,9]. N
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "AI recommendation call failed. Falling back to genre-based recommendations.");
+                _logger.LogWarning(ex, "External AI recommendation failed. Using smart content recommendation engine.");
                 return FallbackRecommendations(currentMovie, candidates);
             }
         }
 
         private List<Movie> FallbackRecommendations(Movie currentMovie, List<Movie> candidates)
         {
-            var sameGenre = candidates
-                .Where(m => m.Genre.Equals(currentMovie.Genre, StringComparison.OrdinalIgnoreCase))
+            // Smart Content-Based Recommendation (Genre + Language + Release proximity)
+            return candidates
+                .OrderByDescending(m => (m.Genre.Equals(currentMovie.Genre, StringComparison.OrdinalIgnoreCase) ? 5 : 0)
+                                      + (m.Language.Equals(currentMovie.Language, StringComparison.OrdinalIgnoreCase) ? 3 : 0))
+                .ThenByDescending(m => m.ReleaseDate)
                 .Take(4)
                 .ToList();
-
-            if (sameGenre.Count >= 1)
-            {
-                return sameGenre;
-            }
-
-            return candidates.Take(4).ToList();
         }
     }
 }
