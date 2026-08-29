@@ -1,0 +1,28 @@
+@model MovieBookingPro.DTOs.TheatreEditDto
+@{
+    ViewData["Title"] = "Edit Theatre";
+}
+
+<h3 class="mb-4">Edit Theatre</h3>
+
+<div class="panel" style="max-width: 600px;">
+    <form asp-action="Update" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <input type="hidden" asp-for="TheatreId" />
+
+        <div class="mb-3">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="Location"></label>
+            <input asp-for="Location" class="form-control" />
+            <span asp-validation-for="Location" class="text-danger small"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary-cinema">Save Changes</button>
+        <a asp-action="Index" class="btn btn-outline-light">Cancel</a>
+    </form>
+</div>

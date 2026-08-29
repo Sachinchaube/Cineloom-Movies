@@ -1,0 +1,24 @@
+@model MovieBookingPro.DTOs.ScreenDto
+@{
+    ViewData["Title"] = "Delete Screen";
+}
+
+<h3 class="mb-4">Delete Screen</h3>
+
+<div class="panel" style="max-width: 600px;">
+    <p>Are you sure you want to delete this screen? This will also remove associated show schedules.</p>
+
+    <dl class="row">
+        <dt class="col-sm-3 text-muted">Screen</dt>
+        <dd class="col-sm-9">@Model.ScreenName</dd>
+        <dt class="col-sm-3 text-muted">Theatre</dt>
+        <dd class="col-sm-9">@Model.TheatreName</dd>
+        <dt class="col-sm-3 text-muted">Capacity</dt>
+        <dd class="col-sm-9">@Model.SeatCapacity</dd>
+    </dl>
+
+    <form asp-action="DeleteConfirmed" asp-route-id="@Model.ScreenId" method="post">
+        <button type="submit" class="btn btn-outline-danger">Delete</button>
+        <a asp-action="Index" class="btn btn-outline-light">Cancel</a>
+    </form>
+</div>

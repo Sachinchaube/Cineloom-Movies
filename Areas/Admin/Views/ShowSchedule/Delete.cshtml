@@ -1,0 +1,26 @@
+@model MovieBookingPro.DTOs.ShowScheduleDto
+@{
+    ViewData["Title"] = "Delete Show";
+}
+
+<h3 class="mb-4">Delete Show</h3>
+
+<div class="panel" style="max-width: 600px;">
+    <p>Are you sure you want to delete this show schedule?</p>
+
+    <dl class="row">
+        <dt class="col-sm-3 text-muted">Movie</dt>
+        <dd class="col-sm-9">@Model.MovieTitle</dd>
+        <dt class="col-sm-3 text-muted">Theatre / Screen</dt>
+        <dd class="col-sm-9">@Model.TheatreName / @Model.ScreenName</dd>
+        <dt class="col-sm-3 text-muted">Date / Time</dt>
+        <dd class="col-sm-9">@Model.ShowDate.ToString("dd-MMM-yyyy") @Model.ShowTime.ToString(@"hh\:mm")</dd>
+        <dt class="col-sm-3 text-muted">Price</dt>
+        <dd class="col-sm-9">₹@Model.Price</dd>
+    </dl>
+
+    <form asp-action="DeleteConfirmed" asp-route-id="@Model.ShowId" method="post">
+        <button type="submit" class="btn btn-outline-danger">Delete</button>
+        <a asp-action="Index" class="btn btn-outline-light">Cancel</a>
+    </form>
+</div>

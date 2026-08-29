@@ -1,0 +1,56 @@
+@model List<MovieBookingPro.DTOs.BookingDto>
+@{
+    ViewData["Title"] = "Bookings";
+}
+
+<h3 class="mb-4">Customer Bookings</h3>
+
+<div class="panel">
+    <table class="table table-cinema mb-0">
+        <thead>
+            <tr>
+                <th>Booking ID</th>
+                <th>Customer</th>
+                <th>Movie</th>
+                <th>Theatre / Screen</th>
+                <th>Show</th>
+                <th>Seats</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>#@item.BookingId</td>
+                    <td>@item.UserName</td>
+                    <td>@item.MovieTitle</td>
+                    <td>@item.TheatreName / @item.ScreenName</td>
+                    <td>@item.ShowDate.ToString("dd-MMM-yyyy") @item.ShowTime.ToString(@"hh\:mm")</td>
+                    <td>@item.SeatCount</td>
+                    <td>₹@item.TotalAmount</td>
+                    <td>
+                        @if (item.Status == "Confirmed")
+                        {
+                            <span class="badge-confirmed">Confirmed</span>
+                        }
+                        else
+                        {
+                            <span class="badge-cancelled">Cancelled</span>
+                        }
+                    </td>
+                    <td>
+                        @if (item.Status == "Confirmed")
+                        {
+                            <form asp-action="Cancel" asp-route-id="@item.BookingId" method="post" onsubmit="return confirm('Cancel this booking?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Cancel</button>
+                            </form>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

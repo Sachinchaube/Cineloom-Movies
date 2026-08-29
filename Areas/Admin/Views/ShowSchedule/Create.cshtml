@@ -1,0 +1,52 @@
+@model MovieBookingPro.DTOs.ShowScheduleCreateDto
+@{
+    ViewData["Title"] = "Add Show";
+    var movies = (List<MovieBookingPro.DTOs.MovieDto>)ViewBag.Movies;
+    var screens = (List<MovieBookingPro.DTOs.ScreenDto>)ViewBag.Screens;
+}
+
+<h3 class="mb-4">Add New Show</h3>
+
+<div class="panel" style="max-width: 600px;">
+    <form asp-action="Insert" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+        <div class="mb-3">
+            <label asp-for="MovieId"></label>
+            <select asp-for="MovieId" class="form-select" asp-items="@(new SelectList(movies, "MovieId", "Title"))">
+                <option value="">-- Select Movie --</option>
+            </select>
+            <span asp-validation-for="MovieId" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ScreenId"></label>
+            <select asp-for="ScreenId" class="form-select" asp-items="@(new SelectList(screens, "ScreenId", "ScreenName"))">
+                <option value="">-- Select Screen --</option>
+            </select>
+            <span asp-validation-for="ScreenId" class="text-danger small"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label asp-for="ShowDate"></label>
+                <input asp-for="ShowDate" class="form-control" />
+                <span asp-validation-for="ShowDate" class="text-danger small"></span>
+            </div>
+            <div class="col-md-6 mb-3">
+                <label asp-for="ShowTime"></label>
+                <input asp-for="ShowTime" class="form-control" />
+                <span asp-validation-for="ShowTime" class="text-danger small"></span>
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="Price"></label>
+            <input asp-for="Price" class="form-control" />
+            <span asp-validation-for="Price" class="text-danger small"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary-cinema">Save Show</button>
+        <a asp-action="Index" class="btn btn-outline-light">Cancel</a>
+    </form>
+</div>

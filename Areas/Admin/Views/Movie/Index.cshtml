@@ -1,0 +1,40 @@
+@model List<MovieBookingPro.DTOs.MovieDto>
+@{
+    ViewData["Title"] = "Movies";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="mb-0">Movies</h3>
+    <a asp-action="Create" class="btn btn-primary-cinema"><i class="bi bi-plus-lg me-1"></i>Add New Movie</a>
+</div>
+
+<div class="panel">
+    <table class="table table-cinema mb-0">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Genre</th>
+                <th>Language</th>
+                <th>Duration</th>
+                <th>Release Date</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td><span class="badge-genre">@item.Genre</span></td>
+                    <td>@item.Language</td>
+                    <td>@item.DurationInMinutes min</td>
+                    <td>@item.ReleaseDate.ToString("dd-MMM-yyyy")</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.MovieId" class="btn btn-sm btn-outline-cinema">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.MovieId" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

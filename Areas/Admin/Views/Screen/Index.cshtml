@@ -1,0 +1,36 @@
+@model List<MovieBookingPro.DTOs.ScreenDto>
+@{
+    ViewData["Title"] = "Screens";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h3 class="mb-0">Screens</h3>
+    <a asp-action="Create" class="btn btn-primary-cinema"><i class="bi bi-plus-lg me-1"></i>Add New Screen</a>
+</div>
+
+<div class="panel">
+    <table class="table table-cinema mb-0">
+        <thead>
+            <tr>
+                <th>Screen Name</th>
+                <th>Theatre</th>
+                <th>Seat Capacity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ScreenName</td>
+                    <td>@item.TheatreName</td>
+                    <td>@item.SeatCapacity</td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ScreenId" class="btn btn-sm btn-outline-cinema">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@item.ScreenId" class="btn btn-sm btn-outline-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

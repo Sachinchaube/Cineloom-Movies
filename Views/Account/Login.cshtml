@@ -1,0 +1,42 @@
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <h3 class="mb-1">Welcome back</h3>
+        <p class="text-muted mb-4">Log in to book tickets and manage your bookings.</p>
+
+        <form asp-controller="Account" asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="mb-3">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" placeholder="john@example.com" />
+                <span asp-validation-for="Email" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-4 form-check">
+                <input asp-for="RememberMe" class="form-check-input" />
+                <label asp-for="RememberMe" class="form-check-label text-light"></label>
+            </div>
+
+            <button type="submit" class="btn btn-primary-cinema w-100">Log In</button>
+        </form>
+
+        <p class="text-center text-muted mt-4 mb-0">
+            Don't have an account? <a asp-controller="Account" asp-action="Register">Sign up</a>
+        </p>
+
+        <div class="text-center text-muted mt-3" style="font-size: 0.8rem;">
+            Admin demo login: admin@cinebook.com / Admin@123
+        </div>
+    </div>
+</div>

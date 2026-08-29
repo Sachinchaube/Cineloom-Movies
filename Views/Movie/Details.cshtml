@@ -1,0 +1,91 @@
+@{
+    ViewData["Title"] = "Movie Details";
+    var movie = (MovieBookingPro.DTOs.MovieDto)ViewBag.Movie;
+    var shows = (List<MovieBookingPro.DTOs.ShowScheduleDto>)ViewBag.Shows;
+    var recommendations = (List<MovieBookingPro.DTOs.MovieDto>)ViewBag.Recommendations;
+}
+
+<div class="container py-5">
+    <div class="row g-4">
+        <div class="col-md-4 col-lg-3">
+            <img src="@(string.IsNullOrWhiteSpace(movie.PosterUrl) ? "https://placehold.co/400x600/1a1d24/9aa0ab?text=" + Uri.EscapeDataString(movie.Title) : movie.PosterUrl)" class="img-fluid rounded-3 w-100" alt="@movie.Title" style="aspect-ratio: 2/3; object-fit: cover;" />
+        </div>
+        <div class="col-md-8 col-lg-9">
+            <h1 class="mb-2">@movie.Title</h1>
+            <div class="mb-3">
+                <span class="badge-genre me-2">@movie.Genre</span>
+                <span class="text-muted">@movie.Language &bull; @movie.DurationInMinutes min &bull; Released @movie.ReleaseDate.ToString("dd MMM yyyy")</span>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(movie.Description))
+            {
+                <p class="text-muted" style="max-width: 700px;">@movie.Description</p>
+            }
+        </div>
+    </div>
+
+    <hr style="border-color: var(--border-color); margin: 2.5rem 0;" />
+
+    <h4 class="mb-3">Showtimes</h4>
+
+    @if (shows.Count == 0)
+    {
+        <p class="text-muted">No upcoming shows scheduled for this movie yet. Please check back later.</p>
+    }
+    else
+    {
+        var groupedByTheatre = shows.GroupBy(s => s.TheatreName);
+        foreach (var theatreGroup in groupedByTheatre)
+        {
+            <div class="panel mb-3">
+                <h6 class="mb-3"><i class="bi bi-geo-alt me-1"></i>@theatreGroup.Key</h6>
+                <div>
+                    @foreach (var show in theatreGroup)
+                    {
+                        <div class="showtime-pill">
+                            @if (show.SeatsAvailable > 0)
+                            {
+                                <a asp-controller="Booking" asp-action="Create" asp-route-showId="@show.ShowId" class="text-decoration-none">
+                                    <div class="fw-semibold text-light">@show.ShowDate.ToString("dd MMM") &bull; @show.ShowTime.ToString(@"hh\:mm")</div>
+                                    <div class="small text-muted">@show.ScreenName &bull; ₹@show.Price &bull; @show.SeatsAvailable seats left</div>
+                                </a>
+                            }
+                            else
+                            {
+                                <div class="text-muted" style="opacity: 0.6;">
+                                    <div class="fw-semibold">@show.ShowDate.ToString("dd MMM") &bull; @show.ShowTime.ToString(@"hh\:mm")</div>
+                                    <div class="small">@show.ScreenName &bull; Sold Out</div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    }
+
+    @if (recommendations != null && recommendations.Count > 0)
+    {
+        <hr style="border-color: var(--border-color); margin: 2.5rem 0;" />
+        <div class="d-flex align-items-center gap-2 mb-3">
+            <h4 class="mb-0">You might also like</h4>
+            <span class="ai-badge"><i class="bi bi-stars"></i>AI Picked</span>
+        </div>
+        <div class="row g-4">
+            @foreach (var rec in recommendations)
+            {
+                <div class="col-6 col-md-4 col-lg-3">
+                    <a asp-controller="Movie" asp-action="Details" asp-route-id="@rec.MovieId" class="text-decoration-none">
+                        <div class="movie-card">
+                            <img src="@(string.IsNullOrWhiteSpace(rec.PosterUrl) ? "https://placehold.co/400x600/1a1d24/9aa0ab?text=" + Uri.EscapeDataString(rec.Title) : rec.PosterUrl)" class="movie-poster" alt="@rec.Title" />
+                            <div class="movie-card-body">
+                                <h5>@rec.Title</h5>
+                                <div class="movie-meta mb-2">@rec.Language &bull; @rec.DurationInMinutes min</div>
+                                <span class="badge-genre">@rec.Genre</span>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        </div>
+    }
+</div>

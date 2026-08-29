@@ -1,0 +1,37 @@
+@model MovieBookingPro.DTOs.ScreenEditDto
+@{
+    ViewData["Title"] = "Edit Screen";
+    var theatres = (List<MovieBookingPro.DTOs.TheatreDto>)ViewBag.Theatres;
+}
+
+<h3 class="mb-4">Edit Screen</h3>
+
+<div class="panel" style="max-width: 600px;">
+    <form asp-action="Update" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <input type="hidden" asp-for="ScreenId" />
+
+        <div class="mb-3">
+            <label asp-for="TheatreId"></label>
+            <select asp-for="TheatreId" class="form-select" asp-items="@(new SelectList(theatres, "TheatreId", "Name"))">
+                <option value="">-- Select Theatre --</option>
+            </select>
+            <span asp-validation-for="TheatreId" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ScreenName"></label>
+            <input asp-for="ScreenName" class="form-control" />
+            <span asp-validation-for="ScreenName" class="text-danger small"></span>
+        </div>
+
+        <div class="mb-4">
+            <label asp-for="SeatCapacity"></label>
+            <input asp-for="SeatCapacity" class="form-control" />
+            <span asp-validation-for="SeatCapacity" class="text-danger small"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary-cinema">Save Changes</button>
+        <a asp-action="Index" class="btn btn-outline-light">Cancel</a>
+    </form>
+</div>

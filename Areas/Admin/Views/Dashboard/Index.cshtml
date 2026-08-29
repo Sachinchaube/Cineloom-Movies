@@ -1,0 +1,82 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h3 class="mb-4">Dashboard</h3>
+
+
+<div class="row justify-content-center g-4 mb-5">
+
+    <div class="col-lg-4 col-md-6">
+        <div class="stat-card">
+            <div class="stat-value">@ViewBag.MovieCount</div>
+            <div class="stat-label">Movies</div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class="stat-card">
+            <div class="stat-value">@ViewBag.TheatreCount</div>
+            <div class="stat-label">Theatres</div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class="stat-card">
+            <div class="stat-value">@ViewBag.ScreenCount</div>
+            <div class="stat-label">Screens</div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class="stat-card">
+            <div class="stat-value">@ViewBag.ShowCount</div>
+            <div class="stat-label">Show Schedules</div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class="stat-card">
+            <div class="stat-value">@ViewBag.BookingCount</div>
+            <div class="stat-label">Bookings</div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-6">
+        <div class="stat-card">
+            <div class="stat-value">₹@ViewBag.TotalRevenue</div>
+            <div class="stat-label">Revenue</div>
+        </div>
+    </div>
+
+</div>
+
+<div class="panel">
+    <h5 class="mb-3">Quick Actions</h5>
+    <div class="row g-3">
+        <div class="col-12 col-sm-6 col-lg-3">
+            <a asp-area="Admin" asp-controller="Movie" asp-action="Create" class="quick-action-card quick-action-red text-decoration-none d-block">
+                <div class="quick-action-label">Add Movie</div>
+                <div class="quick-action-hint">+ New entry</div>
+            </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+            <a asp-area="Admin" asp-controller="Theatre" asp-action="Create" class="quick-action-card quick-action-dark text-decoration-none d-block">
+                <div class="quick-action-label">Add Theatre</div>
+                <div class="quick-action-hint">+ New entry</div>
+            </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+            <a asp-area="Admin" asp-controller="Screen" asp-action="Create" class="quick-action-card quick-action-red text-decoration-none d-block">
+                <div class="quick-action-label">Add Screen</div>
+                <div class="quick-action-hint">+ New entry</div>
+            </a>
+        </div>
+        <div class="col-12 col-sm-6 col-lg-3">
+            <a asp-area="Admin" asp-controller="ShowSchedule" asp-action="Create" class="quick-action-card quick-action-dark text-decoration-none d-block">
+                <div class="quick-action-label">Schedule a Show</div>
+                <div class="quick-action-hint">+ New entry</div>
+            </a>
+        </div>
+    </div>
+</div>

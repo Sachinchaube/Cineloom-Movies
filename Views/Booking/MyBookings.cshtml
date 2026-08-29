@@ -1,0 +1,49 @@
+@model List<MovieBookingPro.DTOs.BookingDto>
+@{
+    ViewData["Title"] = "My Bookings";
+}
+
+<div class="container py-5">
+    <h3 class="mb-4">My Bookings</h3>
+
+    @if (Model.Count == 0)
+    {
+        <p class="text-muted">You haven't booked any tickets yet.</p>
+        <a asp-controller="Movie" asp-action="Index" class="btn btn-primary-cinema">Browse Movies</a>
+    }
+    else
+    {
+        <div class="row g-3">
+            @foreach (var booking in Model)
+            {
+                <div class="col-12">
+                    <div class="panel d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <div>
+                            <h5 class="mb-1">@booking.MovieTitle</h5>
+                            <div class="text-muted small">
+                                @booking.TheatreName (@booking.ScreenName) &bull;
+                                @booking.ShowDate.ToString("dd MMM yyyy") &bull; @booking.ShowTime.ToString(@"hh\:mm")
+                            </div>
+                            <div class="text-muted small mt-1">
+                                @booking.SeatCount seat(s) &bull; ₹@booking.TotalAmount &bull; Booked on @booking.BookingDate.ToString("dd MMM yyyy")
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center gap-3">
+                            @if (booking.Status == "Confirmed")
+                            {
+                                <span class="badge-confirmed">Confirmed</span>
+                                <form asp-controller="Booking" asp-action="Cancel" asp-route-id="@booking.BookingId" method="post" onsubmit="return confirm('Cancel this booking?');">
+                                    <button type="submit" class="btn btn-outline-light btn-sm">Cancel</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <span class="badge-cancelled">Cancelled</span>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
