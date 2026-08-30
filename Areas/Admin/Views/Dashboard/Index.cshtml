@@ -1,81 +1,103 @@
 @{
-    ViewData["Title"] = "Dashboard";
+    ViewData["Title"] = "Executive Overview";
 }
 
-<h3 class="mb-4">Dashboard</h3>
-
-
-<div class="row justify-content-center g-4 mb-5">
-
+<!-- Key Metric Summary Cards -->
+<div class="row g-4 mb-5">
     <div class="col-lg-4 col-md-6">
         <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(255, 0, 59, 0.15); color: #ff3b60;">
+                <i class="bi bi-camera-reels"></i>
+            </div>
             <div class="stat-value">@ViewBag.MovieCount</div>
-            <div class="stat-label">Movies</div>
+            <div class="stat-label">Active Movies in Catalog</div>
         </div>
     </div>
 
     <div class="col-lg-4 col-md-6">
         <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(6, 182, 212, 0.15); color: #06b6d4;">
+                <i class="bi bi-building"></i>
+            </div>
             <div class="stat-value">@ViewBag.TheatreCount</div>
-            <div class="stat-label">Theatres</div>
+            <div class="stat-label">Cinema Theatres & Complexes</div>
         </div>
     </div>
 
     <div class="col-lg-4 col-md-6">
         <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(99, 102, 241, 0.15); color: #6366f1;">
+                <i class="bi bi-display"></i>
+            </div>
             <div class="stat-value">@ViewBag.ScreenCount</div>
-            <div class="stat-label">Screens</div>
+            <div class="stat-label">Cinema Screens & Auditoriums</div>
         </div>
     </div>
 
     <div class="col-lg-4 col-md-6">
         <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;">
+                <i class="bi bi-calendar3"></i>
+            </div>
             <div class="stat-value">@ViewBag.ShowCount</div>
-            <div class="stat-label">Show Schedules</div>
+            <div class="stat-label">Scheduled Showtimes</div>
         </div>
     </div>
 
     <div class="col-lg-4 col-md-6">
         <div class="stat-card">
+            <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;">
+                <i class="bi bi-ticket-perforated"></i>
+            </div>
             <div class="stat-value">@ViewBag.BookingCount</div>
-            <div class="stat-label">Bookings</div>
+            <div class="stat-label">Total Completed Bookings</div>
         </div>
     </div>
 
     <div class="col-lg-4 col-md-6">
         <div class="stat-card">
-            <div class="stat-value">₹@ViewBag.TotalRevenue</div>
-            <div class="stat-label">Revenue</div>
+            <div class="stat-icon" style="background: linear-gradient(135deg, rgba(255, 0, 59, 0.2), rgba(245, 158, 11, 0.2)); color: #fbbf24;">
+                <i class="bi bi-currency-rupee"></i>
+            </div>
+            <div class="stat-value text-gradient-gold">₹@ViewBag.TotalRevenue</div>
+            <div class="stat-label">Total Box Office Revenue</div>
         </div>
     </div>
-
 </div>
 
-<div class="panel">
-    <h5 class="mb-3">Quick Actions</h5>
+<!-- Fast Quick Actions Panel -->
+<div class="panel p-4 mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5 class="text-light fw-bold mb-0"><i class="bi bi-lightning-charge text-warning me-2"></i>Management Actions</h5>
+        <span class="text-muted small">Quick shortcuts for daily cinema operations</span>
+    </div>
     <div class="row g-3">
         <div class="col-12 col-sm-6 col-lg-3">
-            <a asp-area="Admin" asp-controller="Movie" asp-action="Create" class="quick-action-card quick-action-red text-decoration-none d-block">
-                <div class="quick-action-label">Add Movie</div>
-                <div class="quick-action-hint">+ New entry</div>
+            <a asp-area="Admin" asp-controller="Movie" asp-action="Create" class="quick-action-card quick-action-red text-decoration-none">
+                <i class="bi bi-plus-circle fs-3 text-light d-block mb-2"></i>
+                <div class="fw-bold text-light">Add Movie</div>
+                <div class="text-light text-opacity-75 small">+ Add title, genre & duration</div>
             </a>
         </div>
         <div class="col-12 col-sm-6 col-lg-3">
-            <a asp-area="Admin" asp-controller="Theatre" asp-action="Create" class="quick-action-card quick-action-dark text-decoration-none d-block">
-                <div class="quick-action-label">Add Theatre</div>
-                <div class="quick-action-hint">+ New entry</div>
+            <a asp-area="Admin" asp-controller="Theatre" asp-action="Create" class="quick-action-card quick-action-dark text-decoration-none">
+                <i class="bi bi-building-add fs-3 text-info d-block mb-2"></i>
+                <div class="fw-bold text-light">Add Theatre</div>
+                <div class="text-muted small">+ New city multiplex</div>
             </a>
         </div>
         <div class="col-12 col-sm-6 col-lg-3">
-            <a asp-area="Admin" asp-controller="Screen" asp-action="Create" class="quick-action-card quick-action-red text-decoration-none d-block">
-                <div class="quick-action-label">Add Screen</div>
-                <div class="quick-action-hint">+ New entry</div>
+            <a asp-area="Admin" asp-controller="Screen" asp-action="Create" class="quick-action-card quick-action-dark text-decoration-none">
+                <i class="bi bi-display fs-3 text-primary d-block mb-2"></i>
+                <div class="fw-bold text-light">Add Screen</div>
+                <div class="text-muted small">+ Assign hall capacity</div>
             </a>
         </div>
         <div class="col-12 col-sm-6 col-lg-3">
-            <a asp-area="Admin" asp-controller="ShowSchedule" asp-action="Create" class="quick-action-card quick-action-dark text-decoration-none d-block">
-                <div class="quick-action-label">Schedule a Show</div>
-                <div class="quick-action-hint">+ New entry</div>
+            <a asp-area="Admin" asp-controller="ShowSchedule" asp-action="Create" class="quick-action-card quick-action-red text-decoration-none">
+                <i class="bi bi-calendar-plus fs-3 text-light d-block mb-2"></i>
+                <div class="fw-bold text-light">Schedule Show</div>
+                <div class="text-light text-opacity-75 small">+ Date, time & ticket pricing</div>
             </a>
         </div>
     </div>

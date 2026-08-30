@@ -1,42 +1,157 @@
 @model MovieBookingPro.DTOs.ShowScheduleDto
 @{
-    ViewData["Title"] = "Book Tickets";
+    ViewData["Title"] = "Select Seats & Book Tickets";
 }
 
 <div class="container py-5">
-    <div class="row justify-content-center">
-        <div class="col-md-6 col-lg-5">
-            <div class="panel">
-                <h4 class="mb-1">@Model.MovieTitle</h4>
-                <p class="text-muted mb-4">
-                    @Model.TheatreName &bull; @Model.ScreenName<br />
-                    @Model.ShowDate.ToString("dd MMM yyyy") &bull; @Model.ShowTime.ToString(@"hh\:mm")
-                </p>
+    <div class="row g-5">
+        <!-- Left: Cinema Hall Interactive Seat Map -->
+        <div class="col-lg-8">
+            <div class="cinema-hall-container shadow-lg">
+                <!-- Curved Glow Screen -->
+                <div class="cinema-screen-curve"></div>
+                <div class="cinema-screen-label"><i class="bi bi-display me-2 text-info"></i>All Eyes This Way &bull; Cinema Screen</div>
 
-                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
-
-                <div class="d-flex justify-content-between mb-3">
-                    <span class="text-muted">Price per seat</span>
-                    <span class="fw-semibold">₹@Model.Price</span>
+                <!-- Seat Grid -->
+                <div class="seat-grid" id="seatLayout">
+                    @{
+                        char[] rows = { 'A', 'B', 'C', 'D', 'E', 'F' };
+                        int seatsPerRow = 10;
+                    }
+                    @for (int r = 0; r < rows.Length; r++)
+                    {
+                        <div class="seat-row">
+                            <span class="seat-row-label">@rows[r]</span>
+                            <div class="d-flex gap-2">
+                                @for (int s = 1; s <= seatsPerRow; s++)
+                                {
+                                    bool isBooked = (r * 10 + s) % 7 == 0;
+                                    <div class="seat-item @(isBooked ? "seat-booked" : "")" 
+                                         data-seat="@(rows[r])@s" 
+                                         data-booked="@(isBooked ? "true" : "false")"
+                                         title="@(isBooked ? "Seat " + rows[r] + s + " (Booked)" : "Seat " + rows[r] + s)">
+                                        @s
+                                    </div>
+                                }
+                            </div>
+                            <span class="seat-row-label">@rows[r]</span>
+                        </div>
+                    }
                 </div>
-                <div class="d-flex justify-content-between mb-4">
-                    <span class="text-muted">Seats available</span>
-                    <span class="fw-semibold">@Model.SeatsAvailable</span>
+
+                <!-- Seat Status Legend -->
+                <div class="seat-legend pt-3 border-top border-secondary border-opacity-25">
+                    <div class="seat-legend-item">
+                        <div class="seat-item" style="cursor: default;"></div>
+                        <span>Available</span>
+                    </div>
+                    <div class="seat-legend-item">
+                        <div class="seat-item seat-selected" style="cursor: default;"></div>
+                        <span>Selected</span>
+                    </div>
+                    <div class="seat-legend-item">
+                        <div class="seat-item seat-booked" style="cursor: default;"></div>
+                        <span>Reserved</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right: Booking Summary Card -->
+        <div class="col-lg-4">
+            <div class="panel sticky-top" style="top: 90px;">
+                <div class="d-flex align-items-center gap-2 mb-3 pb-3 border-bottom border-secondary border-opacity-25">
+                    <div class="p-2 rounded bg-danger bg-opacity-10 text-danger fs-4">
+                        <i class="bi bi-ticket-perforated-fill"></i>
+                    </div>
+                    <div>
+                        <h5 class="mb-0 text-light fw-bold">Booking Summary</h5>
+                        <small class="text-muted">Review show & seat details</small>
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h5 class="text-light fw-bold mb-1">@Model.MovieTitle</h5>
+                    <p class="text-muted small mb-0">
+                        <i class="bi bi-geo-alt me-1 text-danger"></i>@Model.TheatreName &bull; <span class="text-info">@Model.ScreenName</span><br />
+                        <i class="bi bi-calendar-event me-1 text-danger"></i>@Model.ShowDate.ToString("ddd, dd MMM yyyy") &bull; @Model.ShowTime.ToString(@"hh\:mm")
+                    </p>
+                </div>
+
+                <div asp-validation-summary="ModelOnly" class="alert alert-danger py-2 small mb-3"></div>
+
+                <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary border-opacity-25">
+                    <span class="text-muted">Price per seat</span>
+                    <span class="fw-bold text-light">₹@Model.Price</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary border-opacity-25">
+                    <span class="text-muted">Available seats</span>
+                    <span class="badge bg-success bg-opacity-25 text-success fw-bold">@Model.SeatsAvailable Left</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-2 border-bottom border-secondary border-opacity-25">
+                    <span class="text-muted">Selected Seats</span>
+                    <span class="text-danger fw-bold" id="selectedSeatsLabel">1 Seat (A1)</span>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-3 mb-4">
+                    <span class="fs-5 fw-bold text-light">Total Payable</span>
+                    <span class="fs-4 fw-extrabold text-danger" id="totalPriceLabel">₹@Model.Price</span>
                 </div>
 
                 <form asp-controller="Booking" asp-action="Insert" method="post">
                     <input type="hidden" name="ShowId" value="@Model.ShowId" />
 
                     <div class="mb-4">
-                        <label>Number of seats</label>
-                        <input type="number" name="SeatCount" class="form-control" min="1" max="@Math.Min(10, Model.SeatsAvailable)" value="1" required />
+                        <label class="form-label">Number of Tickets</label>
+                        <input type="number" id="seatCountInput" name="SeatCount" class="form-control" min="1" max="@Math.Min(10, Model.SeatsAvailable)" value="1" required />
+                        <small class="text-muted">Max 10 seats per transaction</small>
                     </div>
 
-                    <button type="submit" class="btn btn-primary-cinema w-100" @(Model.SeatsAvailable == 0 ? "disabled" : "")>
-                        @(Model.SeatsAvailable == 0 ? "Sold Out" : "Confirm Booking")
+                    <button type="submit" class="btn btn-primary-cinema w-100 py-3 fs-6" @(Model.SeatsAvailable == 0 ? "disabled" : "")>
+                        @(Model.SeatsAvailable == 0 ? "Sold Out" : "Confirm & Pay Now")
+                        <i class="bi bi-arrow-right ms-1"></i>
                     </button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const unitPrice = @Model.Price;
+        const seatCountInput = document.getElementById("seatCountInput");
+        const totalPriceLabel = document.getElementById("totalPriceLabel");
+        const selectedSeatsLabel = document.getElementById("selectedSeatsLabel");
+        const seatItems = document.querySelectorAll(".seat-item[data-booked='false']");
+
+        function updateTotals() {
+            let count = parseInt(seatCountInput.value) || 1;
+            if (count < 1) count = 1;
+            let total = count * unitPrice;
+            totalPriceLabel.textContent = "₹" + total.toFixed(2);
+            selectedSeatsLabel.textContent = count + " Seat" + (count > 1 ? "s" : "");
+
+            // Update interactive seats highlight
+            seatItems.forEach((seat, idx) => {
+                if (idx < count) {
+                    seat.classList.add("seat-selected");
+                } else {
+                    seat.classList.remove("seat-selected");
+                }
+            });
+        }
+
+        seatItems.forEach((seat, idx) => {
+            seat.addEventListener("click", function () {
+                seatCountInput.value = Math.min(idx + 1, @Math.Min(10, Model.SeatsAvailable));
+                updateTotals();
+            });
+        });
+
+        seatCountInput.addEventListener("input", updateTotals);
+        updateTotals();
+    });
+</script>
+}
+

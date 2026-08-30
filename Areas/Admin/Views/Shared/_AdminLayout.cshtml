@@ -3,47 +3,84 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CineBook Admin</title>
+    <title>@ViewData["Title"] - CineLoom Executive Control</title>
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
     <div class="admin-wrapper">
+        <!-- Modern Admin Sidebar -->
         <aside class="admin-sidebar">
-            <div class="brand">Cine<span>Book</span> <small class="d-block text-muted" style="font-size:0.7rem;">Admin Panel</small></div>
+            <div class="brand">
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="text-decoration-none">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="brand-logo-icon"><i class="bi bi-film"></i></span>
+                        <h4 class="mb-0 font-grotesk fw-bold text-light">Cine<span class="text-danger">Loom</span></h4>
+                    </div>
+                </a>
+                <div class="badge bg-danger bg-opacity-20 text-danger border border-danger border-opacity-25 mt-2 small px-2 py-1">
+                    <i class="bi bi-shield-lock me-1"></i>Administrator Suite
+                </div>
+            </div>
             
-            <nav class="nav flex-column">
-                <a class="nav-link" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
-                    <i class="bi bi-speedometer2 me-2"></i>Dashboard
+            <nav class="nav flex-column gap-1">
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Dashboard" ? "active" : "")" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                    <i class="bi bi-speedometer2 text-danger"></i>Dashboard Overview
                 </a>
-                <a class="nav-link" asp-area="Admin" asp-controller="Movie" asp-action="Index">
-                    <i class="bi bi-film me-2"></i>Movies
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Movie" ? "active" : "")" asp-area="Admin" asp-controller="Movie" asp-action="Index">
+                    <i class="bi bi-camera-reels text-warning"></i>Manage Movies
                 </a>
-                <a class="nav-link" asp-area="Admin" asp-controller="Theatre" asp-action="Index">
-                    <i class="bi bi-building me-2"></i>Theatres
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Theatre" ? "active" : "")" asp-area="Admin" asp-controller="Theatre" asp-action="Index">
+                    <i class="bi bi-building text-info"></i>Theatres & Complexes
                 </a>
-                <a class="nav-link" asp-area="Admin" asp-controller="Screen" asp-action="Index">
-                    <i class="bi bi-display me-2"></i>Screens
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Screen" ? "active" : "")" asp-area="Admin" asp-controller="Screen" asp-action="Index">
+                    <i class="bi bi-display text-primary"></i>Cinema Screens
                 </a>
-                <a class="nav-link" asp-area="Admin" asp-controller="ShowSchedule" asp-action="Index">
-                    <i class="bi bi-calendar3 me-2"></i>Show Schedules
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "ShowSchedule" ? "active" : "")" asp-area="Admin" asp-controller="ShowSchedule" asp-action="Index">
+                    <i class="bi bi-calendar3 text-success"></i>Show Schedules
                 </a>
-                <a class="nav-link" asp-area="Admin" asp-controller="Booking" asp-action="Index">
-                    <i class="bi bi-ticket-perforated me-2"></i>Bookings
+                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Booking" ? "active" : "")" asp-area="Admin" asp-controller="Booking" asp-action="Index">
+                    <i class="bi bi-ticket-perforated text-danger"></i>Customer Bookings
                 </a>
-                <hr style="border-color: var(--border-color); margin: 0.8rem 1.2rem;" />
-                <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">
-                    <i class="bi bi-box-arrow-left me-2"></i>Back to Site
+            </nav>
+
+            <div class="mt-auto pt-4 border-top border-secondary border-opacity-25 px-3">
+                <a class="btn btn-glass w-100 btn-sm mb-2" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-box-arrow-left me-1"></i> Customer Portal
                 </a>
                 <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
-                    <button type="submit" class="nav-link border-0 bg-transparent w-100 text-start">
-                        <i class="bi bi-power me-2"></i>Logout
+                    <button type="submit" class="btn btn-outline-danger w-100 btn-sm">
+                        <i class="bi bi-power me-1"></i> Log Out
                     </button>
                 </form>
-            </nav>
+            </div>
         </aside>
+
+        <!-- Admin Content Area -->
         <div class="admin-content">
+            <!-- Topbar Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary border-opacity-25">
+                <div>
+                    <span class="text-muted small text-uppercase fw-bold">Admin Management</span>
+                    <h2 class="mb-0 text-light fw-bold">@ViewData["Title"]</h2>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-dark border border-secondary border-opacity-25 text-light px-3 py-2">
+                        <i class="bi bi-clock me-1 text-danger"></i>@DateTime.Now.ToString("dd MMM yyyy")
+                    </span>
+                    <div class="d-flex align-items-center gap-2 p-1 pe-3 rounded-pill bg-dark border border-secondary border-opacity-25">
+                        <div class="rounded-circle bg-danger text-light d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <span class="text-light small fw-bold">Admin Manager</span>
+                    </div>
+                </div>
+            </div>
+
             @RenderBody()
         </div>
     </div>
@@ -53,7 +90,5 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation-unobtrusive@3.2.12/dist/jquery.validate.unobtrusive.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
-
-    
 </body>
 </html>

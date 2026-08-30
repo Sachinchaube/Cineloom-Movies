@@ -1,34 +1,58 @@
 @model List<MovieBookingPro.DTOs.TheatreDto>
 @{
-    ViewData["Title"] = "Theatres";
+    ViewData["Title"] = "Theatres Management";
 }
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h3 class="mb-0">Theatres</h3>
+    <div>
+        <h4 class="mb-0 text-light fw-bold">Cinema Theatres & Complexes</h4>
+        <small class="text-muted">Total @Model.Count multiplex locations active</small>
+    </div>
     <a asp-action="Create" class="btn btn-primary-cinema"><i class="bi bi-plus-lg me-1"></i>Add New Theatre</a>
 </div>
 
-<div class="panel">
-    <table class="table table-cinema mb-0">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Location</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+<div class="panel p-4">
+    <div class="table-responsive">
+        <table class="table table-cinema mb-0">
+            <thead>
                 <tr>
-                    <td>@item.Name</td>
-                    <td>@item.Location</td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.TheatreId" class="btn btn-sm btn-outline-cinema">Edit</a>
-                        <a asp-action="Delete" asp-route-id="@item.TheatreId" class="btn btn-sm btn-outline-danger">Delete</a>
-                    </td>
+                    <th>Theatre Name</th>
+                    <th>City Location</th>
+                    <th class="text-end">Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="p-2 rounded bg-info bg-opacity-10 text-info fs-5">
+                                    <i class="bi bi-building"></i>
+                                </div>
+                                <div>
+                                    <strong class="text-light fs-6">@item.Name</strong>
+                                    <small class="text-muted d-block">ID: #THT-@item.TheatreId</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="text-light"><i class="bi bi-geo-alt text-danger me-1"></i>@item.Location</span>
+                        </td>
+                        <td class="text-end">
+                            <div class="d-inline-flex gap-2">
+                                <a asp-action="Edit" asp-route-id="@item.TheatreId" class="btn btn-sm btn-outline-warning">
+                                    <i class="bi bi-pencil me-1"></i>Edit
+                                </a>
+                                <a asp-action="Delete" asp-route-id="@item.TheatreId" class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash3 me-1"></i>Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
+
