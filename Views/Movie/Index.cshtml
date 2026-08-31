@@ -1,36 +1,36 @@
-@model List<MovieBookingPro.DTOs.MovieDto>
+﻿@model List<MovieBookingPro.DTOs.MovieDto>
 @{
     ViewData["Title"] = "Explore Movies";
 }
 
 <div class="container py-5">
-    <!-- Header with Search -->
+    <!-- Header with Search Form -->
     <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
         <div>
-            <span class="text-danger fw-bold text-uppercase small">Cinema Catalog</span>
+            <span class="text-gold fw-bold text-uppercase small" style="letter-spacing: 0.05em;">Catalog</span>
             <h2 class="mb-0 mt-1">
                 @if (!string.IsNullOrWhiteSpace(ViewBag.Search))
                 {
-                    <text>Search Results for <span class="text-gradient-primary">"@ViewBag.Search"</span></text>
+                    <text>Search Results for "@ViewBag.Search"</text>
                 }
                 else
                 {
-                    <text>Explore All Movies</text>
+                    <text>All Movies</text>
                 }
             </h2>
         </div>
-        <form asp-controller="Movie" asp-action="Index" method="get" class="search-cinema-wrapper d-flex" style="max-width: 420px; width: 100%;">
-            <i class="bi bi-search fs-6 text-muted ms-3 align-self-center"></i>
+        <form asp-controller="Movie" asp-action="Index" method="get" class="search-box-cinema" style="max-width: 400px; width: 100%;">
+            <i class="bi bi-search text-muted ms-2"></i>
             <input type="text" name="search" value="@ViewBag.Search" class="form-control" placeholder="Search by title or genre..." />
-            <button type="submit" class="btn btn-search-cinema py-2 px-3">
+            <button type="submit" class="btn-search py-2 px-3">
                 <i class="bi bi-search"></i>
             </button>
         </form>
     </div>
 
-    <!-- Quick Genre Pills -->
+    <!-- Genre Filter Tabs -->
     <div class="d-flex flex-wrap gap-2 mb-4 pb-2">
-        <a asp-controller="Movie" asp-action="Index" class="badge-genre @(string.IsNullOrEmpty(ViewBag.Search) ? "genre-primary" : "") text-decoration-none px-3 py-2">All Genres</a>
+        <a asp-controller="Movie" asp-action="Index" class="badge-genre @(string.IsNullOrEmpty(ViewBag.Search) ? "genre-active" : "") text-decoration-none px-3 py-2">All Genres</a>
         <a asp-controller="Movie" asp-action="Index" asp-route-search="Sci-Fi" class="badge-genre text-decoration-none px-3 py-2">Sci-Fi</a>
         <a asp-controller="Movie" asp-action="Index" asp-route-search="Action" class="badge-genre text-decoration-none px-3 py-2">Action</a>
         <a asp-controller="Movie" asp-action="Index" asp-route-search="Drama" class="badge-genre text-decoration-none px-3 py-2">Drama</a>
@@ -42,8 +42,8 @@
         <div class="panel text-center py-5">
             <i class="bi bi-film fs-1 text-muted d-block mb-3"></i>
             <h4 class="text-light">No Movies Found</h4>
-            <p class="text-muted mb-3">We couldn't find any movie matching your search criteria.</p>
-            <a asp-controller="Movie" asp-action="Index" class="btn btn-primary-cinema btn-sm">Clear Search</a>
+            <p class="text-muted mb-3">There are no titles matching your search criteria.</p>
+            <a asp-controller="Movie" asp-action="Index" class="btn btn-cinema-gold btn-sm">Clear Search Filter</a>
         </div>
     }
     else
@@ -55,23 +55,23 @@
                     <a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.MovieId" class="text-decoration-none h-100 d-block">
                         <div class="movie-card">
                             <div class="movie-poster-wrap">
-                                <span class="badge-rating"><i class="bi bi-star-fill"></i> 9.@((movie.MovieId * 3) % 9)</span>
-                                <img src="@(string.IsNullOrWhiteSpace(movie.PosterUrl) ? "https://placehold.co/400x600/1a1d24/9aa0ab?text=" + Uri.EscapeDataString(movie.Title) : movie.PosterUrl)" class="movie-poster" alt="@movie.Title" />
+                                <span class="badge-rating"><i class="bi bi-star-fill"></i> 9.@((movie.MovieId * 2 + 1) % 9)</span>
+                                <img src="@(string.IsNullOrWhiteSpace(movie.PosterUrl) ? "https://placehold.co/400x600/101622/94a3b8?text=" + Uri.EscapeDataString(movie.Title) : movie.PosterUrl)" class="movie-poster" alt="@movie.Title" />
                                 <div class="movie-poster-overlay">
-                                    <button class="btn btn-primary-cinema btn-sm w-100 mb-2">
-                                        <i class="bi bi-ticket-perforated"></i> View Showtimes
-                                    </button>
+                                    <div class="btn btn-cinema-gold btn-sm w-100 mb-2">
+                                        View Showtimes
+                                    </div>
                                 </div>
                             </div>
                             <div class="movie-card-body">
                                 <h5 class="movie-card-title" title="@movie.Title">@movie.Title</h5>
                                 <div class="movie-card-meta">
-                                    <i class="bi bi-translate text-muted"></i> @movie.Language
+                                    <span>@movie.Language</span>
                                     <span>&bull;</span>
-                                    <i class="bi bi-clock text-muted"></i> @movie.DurationInMinutes min
+                                    <span>@movie.DurationInMinutes min</span>
                                 </div>
                                 <div class="mt-auto d-flex justify-content-between align-items-center">
-                                    <span class="badge-genre genre-primary">@movie.Genre</span>
+                                    <span class="badge-genre">@movie.Genre</span>
                                     <span class="text-muted small">@movie.ReleaseDate.ToString("yyyy")</span>
                                 </div>
                             </div>
@@ -82,4 +82,3 @@
         </div>
     }
 </div>
-

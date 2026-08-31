@@ -1,27 +1,27 @@
-@model List<MovieBookingPro.DTOs.ShowScheduleDto>
+﻿@model List<MovieBookingPro.DTOs.ShowScheduleDto>
 @{
     ViewData["Title"] = "Show Schedules";
 }
 
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <h4 class="mb-0 text-light fw-bold">Active Show Schedules</h4>
-        <small class="text-muted">Total @Model.Count showtime slots arranged</small>
+        <h4 class="mb-0 text-light fw-bold">Active Showtimes</h4>
+        <small class="text-muted">Total @Model.Count schedules</small>
     </div>
-    <a asp-action="Create" class="btn btn-primary-cinema"><i class="bi bi-plus-lg me-1"></i>Schedule New Show</a>
+    <a asp-action="Create" class="btn btn-cinema-gold btn-sm"><i class="bi bi-plus-lg me-1"></i>Schedule Show</a>
 </div>
 
-<div class="panel p-4">
+<div class="panel">
     <div class="table-responsive">
         <table class="table table-cinema mb-0">
             <thead>
                 <tr>
                     <th>Movie</th>
-                    <th>Theatre Complex</th>
+                    <th>Theatre</th>
                     <th>Screen</th>
                     <th>Date & Time</th>
-                    <th>Ticket Price</th>
-                    <th>Seat Occupancy</th>
+                    <th>Price</th>
+                    <th>Booked / Total</th>
                     <th class="text-end">Actions</th>
                 </tr>
             </thead>
@@ -30,32 +30,26 @@
                 {
                     <tr>
                         <td>
-                            <strong class="text-light fs-6">@item.MovieTitle</strong>
+                            <strong class="text-light">@item.MovieTitle</strong>
                             <small class="text-muted d-block">ID: #SHW-@item.ShowId</small>
                         </td>
-                        <td><i class="bi bi-building text-info me-1"></i>@item.TheatreName</td>
-                        <td><span class="badge bg-dark border border-secondary border-opacity-50 text-light">@item.ScreenName</span></td>
+                        <td>@item.TheatreName</td>
+                        <td><span class="badge-muted">@item.ScreenName</span></td>
                         <td>
                             <strong class="text-light">@item.ShowDate.ToString("dd MMM yyyy")</strong>
-                            <span class="badge bg-danger bg-opacity-15 text-danger ms-1">@item.ShowTime.ToString(@"hh\:mm")</span>
+                            <span class="text-muted ms-1">@item.ShowTime.ToString(@"hh\:mm")</span>
                         </td>
-                        <td><strong class="text-success fs-6">₹@item.Price</strong></td>
+                        <td><strong class="text-gold">₹@item.Price</strong></td>
                         <td>
-                            <div class="small text-muted mb-1">@item.SeatsBooked / @item.SeatCapacity booked</div>
-                            <div class="progress bg-dark" style="height: 6px; width: 100px;">
-                                @{
-                                    int pct = item.SeatCapacity > 0 ? (int)((double)item.SeatsBooked / item.SeatCapacity * 100) : 0;
-                                }
-                                <div class="progress-bar bg-danger" role="progressbar" style="width: @pct%"></div>
-                            </div>
+                            <div class="small text-muted">@item.SeatsBooked / @item.SeatCapacity</div>
                         </td>
                         <td class="text-end">
                             <div class="d-inline-flex gap-2">
-                                <a asp-action="Edit" asp-route-id="@item.ShowId" class="btn btn-sm btn-outline-warning">
-                                    <i class="bi bi-pencil me-1"></i>Edit
+                                <a asp-action="Edit" asp-route-id="@item.ShowId" class="btn btn-sm btn-cinema-subtle">
+                                    Edit
                                 </a>
                                 <a asp-action="Delete" asp-route-id="@item.ShowId" class="btn btn-sm btn-outline-danger">
-                                    <i class="bi bi-trash3 me-1"></i>Delete
+                                    Delete
                                 </a>
                             </div>
                         </td>
@@ -65,4 +59,3 @@
         </table>
     </div>
 </div>
-

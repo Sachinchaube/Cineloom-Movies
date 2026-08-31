@@ -1,86 +1,67 @@
 @model List<MovieBookingPro.Models.Movie>
 @{
-    ViewData["Title"] = "Home - Next-Gen Cinema Experience";
+    ViewData["Title"] = "Now Showing - Movies & Tickets";
     var featured = Model.FirstOrDefault();
-    var otherMovies = Model.Skip(1).ToList();
 }
 
-<!-- Hero Cinematic Section -->
+<!-- Featured Spotlight Hero -->
 <section class="hero-cinema">
-    <div class="container position-relative" style="z-index: 2;">
+    <div class="container">
         <div class="row align-items-center g-5">
             <div class="col-lg-7">
-                <div class="hero-badge">
-                    <i class="bi bi-fire text-danger"></i> Now Showing in Theatres
+                <div class="hero-kicker">
+                    <i class="bi bi-camera-reels"></i> Box Office Premiere
                 </div>
-                <h1 class="hero-title">
-                    Immerse Yourself in <br /><span class="text-gradient-primary">Cinematic Perfection</span>
+                <h1 class="hero-heading">
+                    Book Movie Tickets Online with Ease
                 </h1>
-                <p class="hero-subtitle">
-                    Experience movie magic in IMAX 4K Laser, Dolby Atmos, and ultra-luxurious recliner suites. Reserve prime seats in real time.
+                <p class="hero-text">
+                    Browse the latest releases, find showtimes at top multiplexes near you, select your preferred seats, and get instant digital passes.
                 </p>
 
-                <!-- Search Bar -->
-                <form asp-controller="Movie" asp-action="Index" method="get" class="search-cinema-wrapper d-flex mb-4">
-                    <i class="bi bi-search fs-5 text-muted ms-3 align-self-center"></i>
-                    <input type="text" name="search" class="form-control" placeholder="Search by title, genre, language..." />
-                    <button type="submit" class="btn btn-search-cinema">
-                        <span>Search</span>
-                        <i class="bi bi-arrow-right"></i>
+                <!-- Search Input -->
+                <form asp-controller="Movie" asp-action="Index" method="get" class="search-box-cinema mb-4">
+                    <i class="bi bi-search text-muted ms-2"></i>
+                    <input type="text" name="search" class="form-control" placeholder="Search by movie title, language or genre..." />
+                    <button type="submit" class="btn-search">
+                        Search Shows
                     </button>
                 </form>
 
-                <!-- Stats summary chips -->
-                <div class="d-flex flex-wrap gap-4 pt-2">
-                    <div class="d-flex align-items-center gap-2">
-                        <i class="bi bi-badge-4k fs-3 text-danger"></i>
-                        <div>
-                            <div class="fw-bold text-light">IMAX 4K Laser</div>
-                            <small class="text-muted">Ultra-clarity projection</small>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2">
-                        <i class="bi bi-soundwave fs-3 text-info"></i>
-                        <div>
-                            <div class="fw-bold text-light">Dolby Atmos 7.1</div>
-                            <small class="text-muted">360° Spatial Audio</small>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2">
-                        <i class="bi bi-lightning-charge fs-3 text-warning"></i>
-                        <div>
-                            <div class="fw-bold text-light">Instant Tickets</div>
-                            <small class="text-muted">Zero queue check-in</small>
-                        </div>
-                    </div>
+                <div class="d-flex align-items-center gap-4 text-muted small">
+                    <div><i class="bi bi-check-circle text-gold me-1"></i> Instant Confirmation</div>
+                    <div><i class="bi bi-check-circle text-gold me-1"></i> Reserved Seating</div>
+                    <div><i class="bi bi-check-circle text-gold me-1"></i> Flexible Cancellation</div>
                 </div>
             </div>
 
-            <!-- Featured Movie Spotlight Card -->
             @if (featured != null)
             {
-                <div class="col-lg-5">
-                    <div class="position-relative">
-                        <div class="movie-card shadow-lg" style="border: 1px solid rgba(255, 0, 59, 0.4);">
-                            <div class="movie-poster-wrap" style="aspect-ratio: 16/10;">
-                                <img src="@(string.IsNullOrWhiteSpace(featured.PosterUrl) ? "https://placehold.co/800x500/1a1d24/9aa0ab?text=" + Uri.EscapeDataString(featured.Title) : featured.PosterUrl)" class="movie-poster" alt="@featured.Title" />
-                                <div class="movie-poster-overlay">
-                                    <span class="badge-rating"><i class="bi bi-star-fill"></i> 9.4</span>
-                                    <span class="badge bg-danger text-uppercase fw-bold mb-1" style="width: fit-content; font-size: 0.7rem;">Spotlight Premiere</span>
-                                    <h4 class="text-light fw-bold mb-1">@featured.Title</h4>
-                                    <p class="text-muted small mb-0">@featured.Genre &bull; @featured.Language &bull; @featured.DurationInMinutes min</p>
+                <div class="col-lg-5 text-center text-lg-end">
+                    <div class="d-inline-block position-relative text-start" style="max-width: 320px;">
+                        <a asp-controller="Movie" asp-action="Details" asp-route-id="@featured.MovieId" class="text-decoration-none">
+                            <div class="movie-card shadow-lg">
+                                <div class="movie-poster-wrap">
+                                    <span class="badge-rating">
+                                        <i class="bi bi-star-fill"></i> 9.2
+                                    </span>
+                                    <img src="@(string.IsNullOrWhiteSpace(featured.PosterUrl) ? "https://placehold.co/400x600/101622/94a3b8?text=" + Uri.EscapeDataString(featured.Title) : featured.PosterUrl)" class="movie-poster" alt="@featured.Title" />
+                                    <div class="movie-poster-overlay">
+                                        <div class="btn btn-cinema-gold w-100 btn-sm">
+                                            Select Showtimes
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="movie-card-body">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="badge-genre genre-active">Featured Release</span>
+                                        <span class="text-muted small">@featured.DurationInMinutes min</span>
+                                    </div>
+                                    <h5 class="movie-card-title mt-1 mb-0">@featured.Title</h5>
+                                    <div class="text-muted small">@featured.Language &bull; @featured.Genre</div>
                                 </div>
                             </div>
-                            <div class="p-3 bg-dark d-flex justify-content-between align-items-center">
-                                <div>
-                                    <small class="text-muted d-block">Starting from</small>
-                                    <span class="fw-bold text-light">₹250 / seat</span>
-                                </div>
-                                <a asp-controller="Movie" asp-action="Details" asp-route-id="@featured.MovieId" class="btn btn-primary-cinema btn-sm px-3">
-                                    <i class="bi bi-ticket-perforated"></i> Book Tickets
-                                </a>
-                            </div>
-                        </div>
+                        </a>
                     </div>
                 </div>
             }
@@ -88,30 +69,19 @@
     </div>
 </section>
 
-<!-- Now Showing Catalog Section -->
-<div class="container py-5">
-    <div class="d-flex justify-content-between align-items-end flex-wrap gap-3 mb-4">
-        <div>
-            <span class="text-danger fw-bold text-uppercase small letter-spacing-1">Blockbuster Lineup</span>
-            <h2 class="mb-0 mt-1">Trending & Now Showing</h2>
-        </div>
-        <div class="d-flex gap-2">
-            <a asp-controller="Movie" asp-action="Index" class="btn btn-glass btn-sm">
-                View All Movies <i class="bi bi-arrow-right ms-1"></i>
+<!-- Now Showing Catalog -->
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-4 pb-2 border-bottom" style="border-color: var(--border-subtle) !important;">
+            <div>
+                <span class="text-gold fw-bold text-uppercase small" style="letter-spacing: 0.05em;">Current Schedule</span>
+                <h2 class="mb-0 mt-1">Now Showing in Theatres</h2>
+            </div>
+            <a asp-controller="Movie" asp-action="Index" class="btn btn-cinema-subtle btn-sm">
+                View Full Catalog <i class="bi bi-arrow-right ms-1"></i>
             </a>
         </div>
-    </div>
 
-    @if (Model.Count == 0)
-    {
-        <div class="panel text-center py-5">
-            <i class="bi bi-film fs-1 text-muted d-block mb-3"></i>
-            <h5 class="text-light">No Movies Available</h5>
-            <p class="text-muted">Check back soon for new movie premiere announcements.</p>
-        </div>
-    }
-    else
-    {
         <div class="row g-4">
             @foreach (var movie in Model)
             {
@@ -119,23 +89,25 @@
                     <a asp-controller="Movie" asp-action="Details" asp-route-id="@movie.MovieId" class="text-decoration-none h-100 d-block">
                         <div class="movie-card">
                             <div class="movie-poster-wrap">
-                                <span class="badge-rating"><i class="bi bi-star-fill"></i> 9.@((movie.MovieId * 3) % 9)</span>
-                                <img src="@(string.IsNullOrWhiteSpace(movie.PosterUrl) ? "https://placehold.co/400x600/1a1d24/9aa0ab?text=" + Uri.EscapeDataString(movie.Title) : movie.PosterUrl)" class="movie-poster" alt="@movie.Title" />
+                                <span class="badge-rating">
+                                    <i class="bi bi-star-fill"></i> 9.@((movie.MovieId * 2 + 1) % 9)
+                                </span>
+                                <img src="@(string.IsNullOrWhiteSpace(movie.PosterUrl) ? "https://placehold.co/400x600/101622/94a3b8?text=" + Uri.EscapeDataString(movie.Title) : movie.PosterUrl)" class="movie-poster" alt="@movie.Title" />
                                 <div class="movie-poster-overlay">
-                                    <button class="btn btn-primary-cinema btn-sm w-100 mb-2">
-                                        <i class="bi bi-ticket-perforated"></i> Book Now
-                                    </button>
+                                    <div class="btn btn-cinema-gold btn-sm w-100">
+                                        Book Tickets
+                                    </div>
                                 </div>
                             </div>
                             <div class="movie-card-body">
                                 <h5 class="movie-card-title" title="@movie.Title">@movie.Title</h5>
                                 <div class="movie-card-meta">
-                                    <i class="bi bi-translate text-muted"></i> @movie.Language
+                                    <span>@movie.Language</span>
                                     <span>&bull;</span>
-                                    <i class="bi bi-clock text-muted"></i> @movie.DurationInMinutes min
+                                    <span>@movie.DurationInMinutes min</span>
                                 </div>
                                 <div class="mt-auto d-flex justify-content-between align-items-center">
-                                    <span class="badge-genre genre-primary">@movie.Genre</span>
+                                    <span class="badge-genre">@movie.Genre</span>
                                     <span class="text-muted small">@movie.ReleaseDate.ToString("yyyy")</span>
                                 </div>
                             </div>
@@ -144,26 +116,5 @@
                 </div>
             }
         </div>
-    }
-</div>
-
-<!-- Cinema Luxury Experience Banner -->
-<section class="container mb-5">
-    <div class="panel p-4 p-md-5 position-relative overflow-hidden" style="background: radial-gradient(circle at 100% 50%, rgba(255, 0, 59, 0.15) 0%, rgba(18, 24, 38, 0.9) 100%);">
-        <div class="row align-items-center g-4">
-            <div class="col-lg-8">
-                <span class="badge bg-warning text-dark fw-bold mb-2">VIP CINEMA ACCESS</span>
-                <h3 class="text-light fw-bold mb-2">Upgrade to Luxury Recliner & Gold Class Experience</h3>
-                <p class="text-muted mb-0" style="max-width: 600px;">
-                    Indulge in plush push-button motor recliners, gourmet cinema dining delivered directly to your seat, and ultra-high-definition laser projection.
-                </p>
-            </div>
-            <div class="col-lg-4 text-lg-end">
-                <a asp-controller="Movie" asp-action="Index" class="btn btn-primary-cinema px-4 py-2">
-                    <i class="bi bi-gem me-1"></i> Book VIP Experience
-                </a>
-            </div>
-        </div>
     </div>
 </section>
-

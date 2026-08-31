@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CineLoom Executive Control</title>
+    <title>@ViewData["Title"] - CineLoom Admin</title>
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,70 +13,67 @@
 </head>
 <body>
     <div class="admin-wrapper">
-        <!-- Modern Admin Sidebar -->
+        <!-- Sidebar Navigation -->
         <aside class="admin-sidebar">
             <div class="brand">
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="text-decoration-none">
                     <div class="d-flex align-items-center gap-2">
-                        <span class="brand-logo-icon"><i class="bi bi-film"></i></span>
-                        <h4 class="mb-0 font-grotesk fw-bold text-light">Cine<span class="text-danger">Loom</span></h4>
+                        <span class="brand-mark"><i class="bi bi-film"></i></span>
+                        <h5 class="mb-0 font-brand fw-bold text-light">Cine<span class="text-gold">Loom</span></h5>
                     </div>
                 </a>
-                <div class="badge bg-danger bg-opacity-20 text-danger border border-danger border-opacity-25 mt-2 small px-2 py-1">
-                    <i class="bi bi-shield-lock me-1"></i>Administrator Suite
-                </div>
+                <div class="text-muted small mt-2">Administration Portal</div>
             </div>
             
-            <nav class="nav flex-column gap-1">
+            <nav class="nav flex-column">
                 <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Dashboard" ? "active" : "")" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
-                    <i class="bi bi-speedometer2 text-danger"></i>Dashboard Overview
+                    <i class="bi bi-speedometer2"></i> Dashboard
                 </a>
                 <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Movie" ? "active" : "")" asp-area="Admin" asp-controller="Movie" asp-action="Index">
-                    <i class="bi bi-camera-reels text-warning"></i>Manage Movies
+                    <i class="bi bi-camera-reels"></i> Movies
                 </a>
                 <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Theatre" ? "active" : "")" asp-area="Admin" asp-controller="Theatre" asp-action="Index">
-                    <i class="bi bi-building text-info"></i>Theatres & Complexes
+                    <i class="bi bi-building"></i> Theatres
                 </a>
                 <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Screen" ? "active" : "")" asp-area="Admin" asp-controller="Screen" asp-action="Index">
-                    <i class="bi bi-display text-primary"></i>Cinema Screens
+                    <i class="bi bi-display"></i> Screens
                 </a>
                 <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "ShowSchedule" ? "active" : "")" asp-area="Admin" asp-controller="ShowSchedule" asp-action="Index">
-                    <i class="bi bi-calendar3 text-success"></i>Show Schedules
+                    <i class="bi bi-calendar3"></i> Show Schedules
                 </a>
                 <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Booking" ? "active" : "")" asp-area="Admin" asp-controller="Booking" asp-action="Index">
-                    <i class="bi bi-ticket-perforated text-danger"></i>Customer Bookings
+                    <i class="bi bi-ticket-perforated"></i> Bookings
                 </a>
             </nav>
 
             <div class="mt-auto pt-4 border-top border-secondary border-opacity-25 px-3">
-                <a class="btn btn-glass w-100 btn-sm mb-2" asp-area="" asp-controller="Home" asp-action="Index">
-                    <i class="bi bi-box-arrow-left me-1"></i> Customer Portal
+                <a class="btn btn-cinema-subtle w-100 btn-sm mb-2" asp-area="" asp-controller="Home" asp-action="Index">
+                    Customer Portal
                 </a>
                 <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
                     <button type="submit" class="btn btn-outline-danger w-100 btn-sm">
-                        <i class="bi bi-power me-1"></i> Log Out
+                        Sign Out
                     </button>
                 </form>
             </div>
         </aside>
 
-        <!-- Admin Content Area -->
+        <!-- Main Content Area -->
         <div class="admin-content">
-            <!-- Topbar Header -->
-            <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom border-secondary border-opacity-25">
+            <div class="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom" style="border-color: var(--border-subtle) !important;">
                 <div>
-                    <span class="text-muted small text-uppercase fw-bold">Admin Management</span>
+                    <span class="text-muted small text-uppercase fw-bold">Overview</span>
                     <h2 class="mb-0 text-light fw-bold">@ViewData["Title"]</h2>
                 </div>
                 <div class="d-flex align-items-center gap-3">
-                    <span class="badge bg-dark border border-secondary border-opacity-25 text-light px-3 py-2">
-                        <i class="bi bi-clock me-1 text-danger"></i>@DateTime.Now.ToString("dd MMM yyyy")
+                    <span class="badge-muted">
+                        @DateTime.Now.ToString("dd MMM yyyy")
                     </span>
                     <div class="d-flex align-items-center gap-2 p-1 pe-3 rounded-pill bg-dark border border-secondary border-opacity-25">
-                        <div class="rounded-circle bg-danger text-light d-flex align-items-center justify-content-center" style="width: 32px; height: 32px;">
-                            <i class="bi bi-person-fill"></i>
+                        <div class="rounded-circle bg-secondary text-light d-flex align-items-center justify-content-center" style="width: 28px; height: 28px; font-size: 0.8rem;">
+                            <i class="bi bi-person"></i>
                         </div>
-                        <span class="text-light small fw-bold">Admin Manager</span>
+                        <span class="text-light small">Administrator</span>
                     </div>
                 </div>
             </div>

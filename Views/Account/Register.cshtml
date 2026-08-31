@@ -1,16 +1,16 @@
-@model RegisterViewModel
+﻿@model RegisterViewModel
 @{
-    ViewData["Title"] = "Create Account - CineLoom";
+    ViewData["Title"] = "Create Account";
 }
 
 <div class="container py-5">
-    <div class="row justify-content-center align-items-center min-vh-75">
+    <div class="row justify-content-center align-items-center" style="min-height: 65vh;">
         <div class="col-md-7 col-lg-5">
-            <div class="panel p-4 p-md-5 shadow-lg border border-secondary border-opacity-25 position-relative overflow-hidden">
+            <div class="panel p-4 p-md-5 shadow-lg">
                 <div class="text-center mb-4">
-                    <span class="brand-logo-icon mb-2 d-inline-flex" style="width: 44px; height: 44px; font-size: 1.3rem;"><i class="bi bi-film"></i></span>
+                    <div class="brand-mark mb-2 mx-auto" style="width: 36px; height: 36px; font-size: 1.1rem;"><i class="bi bi-film"></i></div>
                     <h3 class="fw-bold text-light mb-1">Create Account</h3>
-                    <p class="text-muted small">Sign up to book luxury seats & receive exclusive premiere access</p>
+                    <p class="text-muted small">Sign up to reserve seats and track movie bookings</p>
                 </div>
 
                 <form asp-controller="Account" asp-action="Register" method="post">
@@ -18,50 +18,37 @@
 
                     <div class="mb-3">
                         <label asp-for="FullName" class="form-label text-light small fw-bold">Full Name</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-dark border-secondary border-opacity-25 text-muted"><i class="bi bi-person"></i></span>
-                            <input asp-for="FullName" class="form-control" placeholder="John Doe" />
-                        </div>
+                        <input asp-for="FullName" class="form-control" placeholder="John Doe" />
                         <span asp-validation-for="FullName" class="text-danger small"></span>
                     </div>
 
                     <div class="mb-3">
                         <label asp-for="Email" class="form-label text-light small fw-bold">Email Address</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-dark border-secondary border-opacity-25 text-muted"><i class="bi bi-envelope"></i></span>
-                            <input asp-for="Email" class="form-control" placeholder="name@example.com" />
-                        </div>
+                        <input asp-for="Email" class="form-control" placeholder="name@example.com" />
                         <span asp-validation-for="Email" class="text-danger small"></span>
                     </div>
 
                     <div class="mb-3">
                         <label asp-for="Password" class="form-label text-light small fw-bold">Password</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-dark border-secondary border-opacity-25 text-muted"><i class="bi bi-lock"></i></span>
-                            <input asp-for="Password" type="password" class="form-control" placeholder="At least 6 characters" />
-                        </div>
+                        <input asp-for="Password" type="password" class="form-control" placeholder="At least 6 characters" />
                         <span asp-validation-for="Password" class="text-danger small"></span>
                     </div>
 
                     <div class="mb-4">
                         <label asp-for="ConfirmPassword" class="form-label text-light small fw-bold">Confirm Password</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-dark border-secondary border-opacity-25 text-muted"><i class="bi bi-shield-lock"></i></span>
-                            <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Re-enter password" />
-                        </div>
+                        <input asp-for="ConfirmPassword" type="password" class="form-control" placeholder="Re-enter password" />
                         <span asp-validation-for="ConfirmPassword" class="text-danger small"></span>
                     </div>
 
-                    <button type="submit" class="btn btn-primary-cinema w-100 py-2 fs-6 mb-3">
-                        <i class="bi bi-stars me-1"></i> Register & Start Booking
+                    <button type="submit" class="btn btn-cinema-gold w-100 py-2 fs-6 mb-3">
+                        Create Account
                     </button>
                 </form>
 
                 <div class="text-center text-muted small mt-4">
-                    Already have an account? <a asp-controller="Account" asp-action="Login" class="text-danger fw-bold">Sign in here</a>
+                    Already registered? <a asp-controller="Account" asp-action="Login" class="text-gold fw-bold">Sign in</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-

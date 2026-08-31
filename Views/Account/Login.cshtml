@@ -1,16 +1,16 @@
-@model LoginViewModel
+﻿@model LoginViewModel
 @{
-    ViewData["Title"] = "Login to CineLoom";
+    ViewData["Title"] = "Sign In";
 }
 
 <div class="container py-5">
-    <div class="row justify-content-center align-items-center min-vh-75">
+    <div class="row justify-content-center align-items-center" style="min-height: 65vh;">
         <div class="col-md-7 col-lg-5">
-            <div class="panel p-4 p-md-5 shadow-lg border border-secondary border-opacity-25 position-relative overflow-hidden">
+            <div class="panel p-4 p-md-5 shadow-lg">
                 <div class="text-center mb-4">
-                    <span class="brand-logo-icon mb-2 d-inline-flex" style="width: 44px; height: 44px; font-size: 1.3rem;"><i class="bi bi-film"></i></span>
-                    <h3 class="fw-bold text-light mb-1">Welcome Back</h3>
-                    <p class="text-muted small">Log in to book luxury seats & access digital passes</p>
+                    <div class="brand-mark mb-2 mx-auto" style="width: 36px; height: 36px; font-size: 1.1rem;"><i class="bi bi-film"></i></div>
+                    <h3 class="fw-bold text-light mb-1">Account Sign In</h3>
+                    <p class="text-muted small">Sign in to manage bookings and view admission passes</p>
                 </div>
 
                 <form asp-controller="Account" asp-action="Login" asp-route-returnUrl="@ViewBag.ReturnUrl" method="post">
@@ -18,19 +18,13 @@
 
                     <div class="mb-3">
                         <label asp-for="Email" class="form-label text-light small fw-bold">Email Address</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-dark border-secondary border-opacity-25 text-muted"><i class="bi bi-envelope"></i></span>
-                            <input asp-for="Email" id="emailInput" class="form-control" placeholder="name@example.com" />
-                        </div>
+                        <input asp-for="Email" id="emailInput" class="form-control" placeholder="name@example.com" />
                         <span asp-validation-for="Email" class="text-danger small"></span>
                     </div>
 
                     <div class="mb-3">
                         <label asp-for="Password" class="form-label text-light small fw-bold">Password</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-dark border-secondary border-opacity-25 text-muted"><i class="bi bi-lock"></i></span>
-                            <input asp-for="Password" id="passwordInput" type="password" class="form-control" placeholder="••••••••" />
-                        </div>
+                        <input asp-for="Password" id="passwordInput" type="password" class="form-control" placeholder="Password" />
                         <span asp-validation-for="Password" class="text-danger small"></span>
                     </div>
 
@@ -41,26 +35,26 @@
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary-cinema w-100 py-2 fs-6 mb-3">
-                        <i class="bi bi-box-arrow-in-right me-1"></i> Sign In
+                    <button type="submit" class="btn btn-cinema-gold w-100 py-2 fs-6 mb-3">
+                        Sign In
                     </button>
                 </form>
 
-                <!-- Quick Demo Fill Helper -->
-                <div class="p-3 rounded-3 bg-dark border border-secondary border-opacity-25 text-center mt-3">
-                    <small class="text-muted d-block mb-2">⚡ Quick Demo Logins</small>
+                <!-- Demo Accounts Helper -->
+                <div class="p-3 rounded-2 bg-dark border border-secondary border-opacity-25 text-center mt-3">
+                    <span class="text-muted d-block small mb-2">Demo Credentials</span>
                     <div class="d-flex justify-content-center gap-2">
-                        <button type="button" class="btn btn-sm btn-outline-danger px-2" onclick="fillCreds('admin@cinebook.com', 'Admin@123')">
+                        <button type="button" class="btn btn-sm btn-cinema-subtle px-3" onclick="fillCreds('admin@cinebook.com', 'Admin@123')">
                             Admin Account
                         </button>
-                        <button type="button" class="btn btn-sm btn-outline-light px-2" onclick="fillCreds('customer@cinebook.com', 'Customer@123')">
-                            Customer Demo
+                        <button type="button" class="btn btn-sm btn-cinema-subtle px-3" onclick="fillCreds('customer@cinebook.com', 'Customer@123')">
+                            Customer Account
                         </button>
                     </div>
                 </div>
 
                 <div class="text-center text-muted small mt-4">
-                    Don't have an account? <a asp-controller="Account" asp-action="Register" class="text-danger fw-bold">Create Account</a>
+                    Do not have an account? <a asp-controller="Account" asp-action="Register" class="text-gold fw-bold">Register</a>
                 </div>
             </div>
         </div>
@@ -75,4 +69,3 @@
     }
 </script>
 }
-

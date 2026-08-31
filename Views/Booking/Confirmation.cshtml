@@ -1,76 +1,66 @@
-@model MovieBookingPro.DTOs.BookingDto
+﻿@model MovieBookingPro.DTOs.BookingDto
 @{
-    ViewData["Title"] = "Ticket Confirmed - CineLoom";
+    ViewData["Title"] = "Booking Confirmation";
 }
 
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-8 col-lg-6">
-            <!-- Digital Cinema Pass -->
-            <div class="ticket-pass">
-                <div class="ticket-pass-header">
-                    <div class="d-flex align-items-center justify-content-center gap-2 mb-2">
-                        <span class="brand-logo-icon" style="width: 28px; height: 28px; font-size: 0.85rem; background: rgba(255,255,255,0.25);"><i class="bi bi-film"></i></span>
-                        <h4 class="mb-0 font-grotesk fw-bold">CineLoom VIP Pass</h4>
-                    </div>
-                    <span class="badge bg-white text-danger fw-bold text-uppercase px-3 py-1">Booking Confirmed</span>
+            <div class="ticket-receipt shadow-lg">
+                <div class="ticket-receipt-head text-center">
+                    <span class="badge-confirmed d-inline-block mb-2">Booking Confirmed</span>
+                    <h4 class="text-light fw-bold mb-0">CineLoom Admission Pass</h4>
                 </div>
 
-                <div class="ticket-pass-body">
+                <div class="ticket-receipt-body">
                     <div class="text-center mb-4">
-                        <h3 class="fw-extrabold text-light mb-1">@Model.MovieTitle</h3>
-                        <p class="text-muted small mb-0">Present this digital pass at the cinema hall entrance</p>
+                        <h3 class="fw-bold text-light mb-1">@Model.MovieTitle</h3>
+                        <p class="text-muted small mb-0">Present this pass at the theatre entrance</p>
                     </div>
 
-                    <div class="row g-3 mb-3">
+                    <div class="row g-3 mb-2">
                         <div class="col-6">
-                            <span class="text-muted small d-block">Cinema Complex</span>
-                            <strong class="text-light fs-6">@Model.TheatreName</strong>
+                            <span class="text-muted small d-block">Theatre</span>
+                            <strong class="text-light">@Model.TheatreName</strong>
                         </div>
                         <div class="col-6 text-end">
-                            <span class="text-muted small d-block">Screen</span>
-                            <strong class="text-info fs-6">@Model.ScreenName</strong>
+                            <span class="text-muted small d-block">Auditorium / Screen</span>
+                            <strong class="text-light">@Model.ScreenName</strong>
                         </div>
                         <div class="col-6">
                             <span class="text-muted small d-block">Date & Showtime</span>
-                            <strong class="text-light fs-6">@Model.ShowDate.ToString("dd MMM yyyy") &bull; @Model.ShowTime.ToString(@"hh\:mm")</strong>
+                            <strong class="text-light">@Model.ShowDate.ToString("dd MMM yyyy") &bull; @Model.ShowTime.ToString(@"hh\:mm")</strong>
                         </div>
                         <div class="col-6 text-end">
-                            <span class="text-muted small d-block">Seats Reserved</span>
-                            <strong class="text-danger fs-5">@Model.SeatCount Seat(s)</strong>
+                            <span class="text-muted small d-block">Tickets</span>
+                            <strong class="text-gold">@Model.SeatCount Seat(s)</strong>
                         </div>
                     </div>
 
-                    <!-- Perforation Line -->
-                    <div class="ticket-perforation">
-                        <div class="ticket-perforation-line"></div>
-                    </div>
+                    <div class="ticket-divider"></div>
 
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <div>
                             <span class="text-muted small d-block">Booking Reference</span>
-                            <span class="font-grotesk fw-bold text-light fs-5">#CIN-@Model.BookingId.ToString("D5")</span>
+                            <span class="font-brand fw-bold text-light fs-5">#CIN-@Model.BookingId.ToString("D5")</span>
                         </div>
                         <div class="text-end">
-                            <span class="text-muted small d-block">Total Amount Paid</span>
-                            <span class="fw-bold text-success fs-4">₹@Model.TotalAmount</span>
+                            <span class="text-muted small d-block">Total Paid</span>
+                            <span class="fw-bold text-gold fs-4">₹@Model.TotalAmount</span>
                         </div>
                     </div>
 
-                    <!-- Simulated QR Ticket Code -->
-                    <div class="text-center p-3 rounded-3 bg-dark border border-secondary border-opacity-25 mb-4">
-                        <div class="d-flex justify-content-center gap-1 mb-2">
-                            <i class="bi bi-qr-code fs-1 text-light"></i>
-                        </div>
-                        <span class="text-muted small">Scan for instant barcode entry at turnstiles</span>
+                    <div class="text-center p-3 rounded-2 bg-dark border border-secondary border-opacity-25 mb-4">
+                        <div class="text-muted small">Barcode reference for automated turnstile entry</div>
+                        <div class="text-light fw-bold font-monospace fs-6 mt-1">CIN-@Model.BookingId.ToString("D5")-@Model.ShowId-@Model.SeatCount</div>
                     </div>
 
                     <div class="d-flex gap-3 flex-wrap">
-                        <a asp-controller="Booking" asp-action="MyBookings" class="btn btn-primary-cinema flex-grow-1 py-2">
-                            <i class="bi bi-ticket-detailed me-1"></i> View All Tickets
+                        <a asp-controller="Booking" asp-action="MyBookings" class="btn btn-cinema-gold flex-grow-1 py-2">
+                            View All Bookings
                         </a>
-                        <a asp-controller="Home" asp-action="Index" class="btn btn-glass flex-grow-1 py-2">
-                            <i class="bi bi-house-door me-1"></i> Back to Home
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-cinema-subtle flex-grow-1 py-2">
+                            Return Home
                         </a>
                     </div>
                 </div>
@@ -78,4 +68,3 @@
         </div>
     </div>
 </div>
-
