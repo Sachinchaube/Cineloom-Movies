@@ -30,13 +30,13 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td><span class="font-monospace text-light">#NEST-@item.BookingId.ToString("D5")</span></td>
-                        <td><strong class="text-light">@item.UserName</strong></td>
-                        <td>@item.MovieTitle</td>
-                        <td><span class="text-muted small">@item.TheatreName &bull; @item.ScreenName</span></td>
-                        <td>@item.ShowDate.ToString("dd MMM yyyy") @item.ShowTime.ToString(@"hh\:mm")</td>
+                        <td><span class="badge-ref">#NEST-@item.BookingId.ToString("D5")</span></td>
+                        <td><strong class="text-white">@item.UserName</strong></td>
+                        <td><strong class="text-white">@item.MovieTitle</strong></td>
+                        <td><span class="text-muted">@item.TheatreName &bull; <span class="text-white">@item.ScreenName</span></span></td>
+                        <td><span class="text-white">@item.ShowDate.ToString("dd MMM yyyy")</span> <span class="text-muted">@item.ShowTime.ToString(@"hh\:mm")</span></td>
                         <td><span class="text-gold fw-bold">@item.SeatCount</span></td>
-                        <td><strong class="text-gold">₹@item.TotalAmount</strong></td>
+                        <td><strong class="text-gold fs-6">₹@item.TotalAmount</strong></td>
                         <td>
                             @if (item.Status == "Confirmed")
                             {
@@ -51,7 +51,7 @@
                             @if (item.Status == "Confirmed")
                             {
                                 <form asp-action="Cancel" asp-route-id="@item.BookingId" method="post" onsubmit="return confirm('Cancel this customer booking?');" class="d-inline">
-                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    <button type="submit" class="btn btn-sm btn-outline-danger px-3 py-1">
                                         Cancel
                                     </button>
                                 </form>

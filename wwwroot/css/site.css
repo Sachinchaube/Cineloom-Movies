@@ -1,12 +1,13 @@
 ﻿/* ==========================================================================
-   CINELOOM — REFINED CINEMA & THEATRE DESIGN SYSTEM
-   Palette: Midnight Slate, Deep Navy, Warm Champagne Gold, Slate Blue
+   MOVIENEST — LUXURY CINEMA DESIGN SYSTEM
+   Palette: Deep Midnight Obsidian (#090C12), Royal Slate (#121927), 
+            Warm Champagne Gold (#E5B869), Cobalt Blue (#2563EB)
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Cabinet+Grotesk:wght@700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 :root {
-    /* Palette Tokens */
+    /* Color Palette */
     --gold-primary: #e5b869;
     --gold-hover: #f3c77c;
     --gold-dark: #c59b27;
@@ -15,56 +16,59 @@
     --navy-accent: #2563eb;
     --navy-hover: #1d4ed8;
     
-    /* Background Canvas & Layers */
-    --bg-base: #0a0d14;
-    --bg-surface: #101622;
-    --bg-card: #151d2c;
-    --bg-card-hover: #1c2638;
-    --bg-input: #0e131d;
-    --bg-glass: rgba(16, 22, 34, 0.85);
+    /* Background Canvas */
+    --bg-base: #090c12;
+    --bg-surface: #0f1523;
+    --bg-card: #141c2c;
+    --bg-card-hover: #1b263b;
+    --bg-input: #0c121e;
+    --bg-glass: rgba(15, 21, 35, 0.92);
     
-    /* Text Hierarchy */
+    /* Text Colors - High Contrast */
     --text-pure: #ffffff;
-    --text-main: #e2e8f0;
+    --text-main: #f1f5f9;
     --text-muted: #94a3b8;
     --text-subtle: #64748b;
     
-    /* Structural Borders */
-    --border-subtle: #1e293b;
-    --border-hover: #334155;
-    --border-gold: rgba(229, 184, 105, 0.4);
+    /* Borders */
+    --border-subtle: #202b3f;
+    --border-hover: #334360;
+    --border-gold: rgba(229, 184, 105, 0.45);
     
-    /* Semantic Status Indicators */
-    --status-confirmed: #10b981;
-    --status-confirmed-bg: rgba(16, 185, 129, 0.12);
-    --status-cancelled: #ef4444;
-    --status-cancelled-bg: rgba(239, 68, 68, 0.12);
-    --status-warning: #f59e0b;
-    --status-warning-bg: rgba(245, 158, 11, 0.12);
+    /* Semantic Badges */
+    --status-confirmed-bg: #064e3b;
+    --status-confirmed: #34d399;
+    --status-confirmed-border: #059669;
+    
+    --status-cancelled-bg: #7f1d1d;
+    --status-cancelled: #f87171;
+    --status-cancelled-border: #dc2626;
     
     /* Geometry */
     --radius-sm: 6px;
     --radius-md: 10px;
     --radius-lg: 16px;
     --radius-full: 9999px;
-    --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.4);
-    --shadow-elevated: 0 12px 32px rgba(0, 0, 0, 0.55);
+    --shadow-subtle: 0 4px 20px rgba(0, 0, 0, 0.45);
+    --shadow-elevated: 0 12px 32px rgba(0, 0, 0, 0.65);
 }
 
-/* Base Styles */
+/* Global Reset */
 * {
     box-sizing: border-box;
 }
 
 body {
-    background-color: var(--bg-base);
-    color: var(--text-main);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-base) !important;
+    color: var(--text-main) !important;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
-    line-height: 1.5;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 /* Custom Scrollbars */
@@ -76,7 +80,7 @@ body {
     background: var(--bg-base);
 }
 ::-webkit-scrollbar-thumb {
-    background: #1e293b;
+    background: #202b3f;
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
@@ -85,13 +89,14 @@ body {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-    color: var(--text-pure);
+    color: var(--text-pure) !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
     font-weight: 700;
-    letter-spacing: -0.015em;
+    letter-spacing: -0.02em;
 }
 
 .font-brand {
-    font-family: 'Cabinet Grotesk', 'Inter', sans-serif;
+    font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif !important;
     letter-spacing: -0.02em;
 }
 
@@ -116,7 +121,7 @@ a:hover {
     background: var(--bg-glass) !important;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--border-subtle) !important;
     padding: 0.85rem 0;
     position: sticky;
     top: 0;
@@ -134,16 +139,17 @@ a:hover {
 }
 
 .navbar-cinema .brand-mark {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     background: linear-gradient(135deg, #e5b869 0%, #c59b27 100%);
-    border-radius: 7px;
+    border-radius: 8px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: #0a0d14;
+    color: #090c12;
     font-size: 1rem;
     font-weight: 900;
+    box-shadow: 0 2px 8px rgba(229, 184, 105, 0.3);
 }
 
 .navbar-cinema .navbar-brand span {
@@ -152,7 +158,7 @@ a:hover {
 
 .navbar-cinema .nav-link {
     color: var(--text-muted) !important;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 0.92rem;
     padding: 0.45rem 0.95rem !important;
     border-radius: var(--radius-sm);
@@ -162,7 +168,7 @@ a:hover {
 .navbar-cinema .nav-link:hover,
 .navbar-cinema .nav-link.active {
     color: var(--text-pure) !important;
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.06);
 }
 
 /* ==========================================================================
@@ -171,7 +177,7 @@ a:hover {
 .hero-cinema {
     position: relative;
     padding: 4.5rem 0 3.5rem;
-    background: linear-gradient(180deg, #101622 0%, #0a0d14 100%);
+    background: linear-gradient(180deg, #0f1523 0%, #090c12 100%);
     border-bottom: 1px solid var(--border-subtle);
 }
 
@@ -179,10 +185,10 @@ a:hover {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    background: rgba(229, 184, 105, 0.1);
-    border: 1px solid rgba(229, 184, 105, 0.25);
+    background: rgba(229, 184, 105, 0.12);
+    border: 1px solid rgba(229, 184, 105, 0.3);
     color: var(--gold-primary);
-    padding: 0.3rem 0.8rem;
+    padding: 0.35rem 0.85rem;
     border-radius: var(--radius-full);
     font-size: 0.78rem;
     font-weight: 700;
@@ -196,7 +202,7 @@ a:hover {
     font-weight: 800;
     line-height: 1.18;
     margin-bottom: 1.15rem;
-    color: var(--text-pure);
+    color: var(--text-pure) !important;
 }
 
 @media (max-width: 768px) {
@@ -207,13 +213,13 @@ a:hover {
 
 .hero-cinema .hero-text {
     color: var(--text-muted);
-    font-size: 1.08rem;
+    font-size: 1.05rem;
     max-width: 580px;
     line-height: 1.6;
     margin-bottom: 2rem;
 }
 
-/* Search Bar */
+/* Search Box */
 .search-box-cinema {
     max-width: 540px;
     background: var(--bg-card);
@@ -227,7 +233,7 @@ a:hover {
 
 .search-box-cinema:focus-within {
     border-color: var(--gold-primary);
-    box-shadow: 0 0 0 3px rgba(229, 184, 105, 0.15);
+    box-shadow: 0 0 0 3px rgba(229, 184, 105, 0.18);
 }
 
 .search-box-cinema .form-control {
@@ -246,7 +252,7 @@ a:hover {
 .search-box-cinema .btn-search {
     background: var(--gold-primary);
     border: none;
-    color: #0a0d14;
+    color: #090c12;
     padding: 0.65rem 1.4rem;
     border-radius: var(--radius-sm);
     font-weight: 700;
@@ -259,15 +265,15 @@ a:hover {
 
 .search-box-cinema .btn-search:hover {
     background: var(--gold-hover);
-    color: #0a0d14;
+    color: #090c12;
 }
 
 /* ==========================================================================
    CARDS & POSTERS
    ========================================================================== */
 .movie-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-subtle) !important;
     border-radius: var(--radius-md);
     overflow: hidden;
     transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
@@ -278,7 +284,7 @@ a:hover {
 
 .movie-card:hover {
     transform: translateY(-4px);
-    border-color: var(--border-gold);
+    border-color: var(--border-gold) !important;
     box-shadow: var(--shadow-elevated);
 }
 
@@ -287,7 +293,7 @@ a:hover {
     width: 100%;
     aspect-ratio: 2 / 3;
     overflow: hidden;
-    background: #0e131d;
+    background: #090c12;
 }
 
 .movie-poster {
@@ -304,12 +310,12 @@ a:hover {
 .movie-poster-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(10, 13, 20, 0.95) 100%);
+    background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(9, 12, 18, 0.95) 100%);
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     padding: 0.85rem;
-    opacity: 0.85;
+    opacity: 0.9;
     transition: opacity 0.2s ease;
 }
 
@@ -317,7 +323,7 @@ a:hover {
     position: absolute;
     top: 10px;
     right: 10px;
-    background: rgba(10, 13, 20, 0.85);
+    background: rgba(9, 12, 18, 0.9);
     border: 1px solid var(--border-subtle);
     color: var(--gold-primary);
     font-size: 0.78rem;
@@ -335,12 +341,13 @@ a:hover {
     display: flex;
     flex-direction: column;
     flex: 1;
+    background: var(--bg-card);
 }
 
 .movie-card-title {
-    font-size: 1.02rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    color: var(--text-pure);
+    color: var(--text-pure) !important;
     margin-bottom: 0.35rem;
     white-space: nowrap;
     overflow: hidden;
@@ -358,18 +365,18 @@ a:hover {
 
 .badge-genre {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.06);
     border: 1px solid var(--border-subtle);
     color: var(--text-main);
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    padding: 0.25rem 0.6rem;
+    padding: 0.25rem 0.65rem;
     border-radius: var(--radius-sm);
 }
 
 .badge-genre.genre-active {
     background: rgba(229, 184, 105, 0.15);
-    border-color: rgba(229, 184, 105, 0.35);
+    border-color: rgba(229, 184, 105, 0.4);
     color: var(--gold-primary);
 }
 
@@ -377,10 +384,10 @@ a:hover {
    BUTTONS
    ========================================================================== */
 .btn-cinema-gold {
-    background: var(--gold-primary);
-    border: 1px solid var(--gold-primary);
-    color: #0a0d14 !important;
-    font-weight: 700;
+    background: var(--gold-primary) !important;
+    border: 1px solid var(--gold-primary) !important;
+    color: #090c12 !important;
+    font-weight: 700 !important;
     font-size: 0.9rem;
     padding: 0.6rem 1.35rem;
     border-radius: var(--radius-sm);
@@ -392,18 +399,18 @@ a:hover {
 }
 
 .btn-cinema-gold:hover {
-    background: var(--gold-hover);
-    border-color: var(--gold-hover);
-    color: #0a0d14 !important;
+    background: var(--gold-hover) !important;
+    border-color: var(--gold-hover) !important;
+    color: #090c12 !important;
     transform: translateY(-1px);
     box-shadow: 0 4px 14px var(--gold-glow);
 }
 
 .btn-cinema-navy {
-    background: var(--navy-accent);
-    border: 1px solid var(--navy-accent);
+    background: var(--navy-accent) !important;
+    border: 1px solid var(--navy-accent) !important;
     color: #ffffff !important;
-    font-weight: 600;
+    font-weight: 600 !important;
     font-size: 0.9rem;
     padding: 0.6rem 1.35rem;
     border-radius: var(--radius-sm);
@@ -415,16 +422,16 @@ a:hover {
 }
 
 .btn-cinema-navy:hover {
-    background: var(--navy-hover);
-    border-color: var(--navy-hover);
+    background: var(--navy-hover) !important;
+    border-color: var(--navy-hover) !important;
     color: #ffffff !important;
 }
 
 .btn-cinema-subtle {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-subtle) !important;
     color: var(--text-main) !important;
-    font-weight: 600;
+    font-weight: 600 !important;
     font-size: 0.9rem;
     padding: 0.6rem 1.25rem;
     border-radius: var(--radius-sm);
@@ -436,8 +443,8 @@ a:hover {
 }
 
 .btn-cinema-subtle:hover {
-    background: var(--bg-card-hover);
-    border-color: var(--border-hover);
+    background: var(--bg-card-hover) !important;
+    border-color: var(--border-hover) !important;
     color: var(--text-pure) !important;
 }
 
@@ -445,31 +452,31 @@ a:hover {
    PANELS & CONTAINERS
    ========================================================================== */
 .panel {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-subtle) !important;
     border-radius: var(--radius-md);
     padding: 1.5rem;
 }
 
-/* Showtime Badges */
+/* Showtime Cards */
 .showtime-card {
     display: inline-block;
-    background: #111722;
-    border: 1px solid var(--border-subtle);
+    background: #0f1523 !important;
+    border: 1px solid var(--border-subtle) !important;
     border-radius: var(--radius-sm);
-    padding: 0.75rem 1.15rem;
+    padding: 0.85rem 1.25rem;
     margin: 0 0.6rem 0.6rem 0;
     transition: all 0.18s ease;
 }
 
 .showtime-card:hover {
-    border-color: var(--gold-primary);
-    background: #172030;
+    border-color: var(--gold-primary) !important;
+    background: #162035 !important;
     transform: translateY(-2px);
 }
 
 .showtime-card.sold-out {
-    opacity: 0.4;
+    opacity: 0.45;
     cursor: not-allowed;
 }
 
@@ -477,7 +484,7 @@ a:hover {
    SEAT SELECTION MATRIX
    ========================================================================== */
 .cinema-hall-box {
-    background: #0e131d;
+    background: #0b0f19;
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-md);
     padding: 2.2rem 1.5rem 1.5rem;
@@ -527,8 +534,8 @@ a:hover {
     width: 28px;
     height: 26px;
     border-radius: 4px;
-    background: #1a2232;
-    border: 1px solid #28354c;
+    background: #162035;
+    border: 1px solid #283754;
     font-size: 0.68rem;
     font-weight: 600;
     display: inline-flex;
@@ -541,21 +548,21 @@ a:hover {
 }
 
 .seat-unit:hover {
-    background: #27364f;
+    background: #233454;
     color: var(--text-pure);
 }
 
 .seat-unit.seat-selected {
-    background: var(--gold-primary);
-    border-color: var(--gold-hover);
-    color: #0a0d14;
+    background: var(--gold-primary) !important;
+    border-color: var(--gold-hover) !important;
+    color: #090c12 !important;
     font-weight: 800;
 }
 
 .seat-unit.seat-booked {
-    background: #0f1520;
-    border-color: #172030;
-    color: #334155;
+    background: #0c111c !important;
+    border-color: #151d2e !important;
+    color: #334155 !important;
     cursor: not-allowed;
 }
 
@@ -563,15 +570,15 @@ a:hover {
    TICKET RECEIPT CARD
    ========================================================================== */
 .ticket-receipt {
-    background: #111722;
-    border: 1px solid var(--border-subtle);
+    background: #0f1523 !important;
+    border: 1px solid var(--border-subtle) !important;
     border-radius: var(--radius-md);
     overflow: hidden;
 }
 
 .ticket-receipt-head {
-    background: #151e2e;
-    border-bottom: 1px solid var(--border-subtle);
+    background: #141c2c !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
     padding: 1.25rem 1.5rem;
 }
 
@@ -585,72 +592,127 @@ a:hover {
 }
 
 /* ==========================================================================
-   TABLES
+   TABLES & ADMIN DATA GRIDS (CRITICAL FIX FOR VISIBILITY)
    ========================================================================== */
-.table-cinema {
-    color: var(--text-main);
-    border-collapse: separate;
-    border-spacing: 0 0.4rem;
-    background: transparent;
+.table,
+table.table-cinema {
+    --bs-table-bg: transparent !important;
+    --bs-table-color: var(--text-main) !important;
+    --bs-table-hover-bg: #1c263c !important;
+    --bs-table-hover-color: #ffffff !important;
+    --bs-table-border-color: var(--border-subtle) !important;
+    color: var(--text-main) !important;
+    background-color: transparent !important;
+    border-collapse: separate !important;
+    border-spacing: 0 0.5rem !important;
+    margin-bottom: 0 !important;
+    width: 100% !important;
 }
 
+/* Remove default bootstrap white bg on td & th */
+.table > :not(caption) > * > *,
+.table-cinema > :not(caption) > * > * {
+    background-color: transparent !important;
+    box-shadow: none !important;
+}
+
+.table thead th,
 .table-cinema thead th {
-    background: transparent;
-    border: none;
-    color: var(--text-subtle);
-    font-size: 0.78rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    padding: 0.6rem 0.9rem;
+    background: transparent !important;
+    color: var(--text-muted) !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.07em !important;
+    border: none !important;
+    padding: 0.85rem 1.15rem !important;
 }
 
+.table tbody tr,
 .table-cinema tbody tr {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-sm);
-    transition: background-color 0.15s ease;
+    background-color: #141c2c !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35) !important;
+    transition: all 0.18s ease !important;
 }
 
+.table tbody tr:hover,
 .table-cinema tbody tr:hover {
-    background: var(--bg-card-hover);
+    background-color: #1c263c !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5) !important;
 }
 
+.table tbody td,
 .table-cinema tbody td {
-    border: none;
-    padding: 0.85rem 0.9rem;
-    vertical-align: middle;
+    background-color: transparent !important;
+    color: #f1f5f9 !important;
+    padding: 1.1rem 1.15rem !important;
+    border-top: 1px solid var(--border-subtle) !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
+    border-left: none !important;
+    border-right: none !important;
+    vertical-align: middle !important;
 }
 
-/* Badges */
+.table tbody td:first-child,
+.table-cinema tbody td:first-child {
+    border-left: 1px solid var(--border-subtle) !important;
+    border-top-left-radius: 8px !important;
+    border-bottom-left-radius: 8px !important;
+}
+
+.table tbody td:last-child,
+.table-cinema tbody td:last-child {
+    border-right: 1px solid var(--border-subtle) !important;
+    border-top-right-radius: 8px !important;
+    border-bottom-right-radius: 8px !important;
+}
+
+/* Reference Badges in Tables */
+.badge-ref {
+    background: rgba(229, 184, 105, 0.12) !important;
+    color: var(--gold-primary) !important;
+    border: 1px solid rgba(229, 184, 105, 0.3) !important;
+    font-family: 'Space Grotesk', monospace !important;
+    font-weight: 700 !important;
+    font-size: 0.85rem !important;
+    padding: 0.35rem 0.65rem !important;
+    border-radius: var(--radius-sm) !important;
+    display: inline-block;
+}
+
+/* Status Badges */
 .badge-confirmed {
-    background: var(--status-confirmed-bg);
-    color: var(--status-confirmed);
-    border: 1px solid rgba(16, 185, 129, 0.25);
-    padding: 0.3rem 0.7rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.78rem;
-    font-weight: 600;
+    background: var(--status-confirmed-bg) !important;
+    color: var(--status-confirmed) !important;
+    border: 1px solid var(--status-confirmed-border) !important;
+    padding: 0.35rem 0.8rem !important;
+    border-radius: var(--radius-sm) !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    display: inline-block;
 }
 
 .badge-cancelled {
-    background: var(--status-cancelled-bg);
-    color: var(--status-cancelled);
-    border: 1px solid rgba(239, 68, 68, 0.25);
-    padding: 0.3rem 0.7rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.78rem;
-    font-weight: 600;
+    background: var(--status-cancelled-bg) !important;
+    color: var(--status-cancelled) !important;
+    border: 1px solid var(--status-cancelled-border) !important;
+    padding: 0.35rem 0.8rem !important;
+    border-radius: var(--radius-sm) !important;
+    font-size: 0.8rem !important;
+    font-weight: 700 !important;
+    display: inline-block;
 }
 
 .badge-muted {
-    background: rgba(255, 255, 255, 0.05);
-    color: var(--text-muted);
-    border: 1px solid var(--border-subtle);
-    padding: 0.3rem 0.65rem;
-    border-radius: var(--radius-sm);
-    font-size: 0.78rem;
-    font-weight: 600;
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-subtle) !important;
+    padding: 0.35rem 0.75rem !important;
+    border-radius: var(--radius-sm) !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    display: inline-block;
 }
 
 /* ==========================================================================
@@ -663,8 +725,8 @@ a:hover {
 
 .admin-sidebar {
     width: 260px;
-    background: var(--bg-surface);
-    border-right: 1px solid var(--border-subtle);
+    background: var(--bg-surface) !important;
+    border-right: 1px solid var(--border-subtle) !important;
     display: flex;
     flex-direction: column;
     flex-shrink: 0;
@@ -678,10 +740,10 @@ a:hover {
 }
 
 .admin-sidebar .nav-link {
-    color: var(--text-muted);
-    padding: 0.7rem 1.25rem;
-    font-weight: 500;
-    font-size: 0.9rem;
+    color: var(--text-muted) !important;
+    padding: 0.75rem 1.25rem;
+    font-weight: 600;
+    font-size: 0.92rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -690,78 +752,79 @@ a:hover {
 }
 
 .admin-sidebar .nav-link:hover {
-    background: rgba(255, 255, 255, 0.03);
-    color: var(--text-pure);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-pure) !important;
 }
 
 .admin-sidebar .nav-link.active {
-    background: rgba(229, 184, 105, 0.08);
-    color: var(--gold-primary);
-    border-left-color: var(--gold-primary);
-    font-weight: 600;
+    background: rgba(229, 184, 105, 0.1) !important;
+    color: var(--gold-primary) !important;
+    border-left-color: var(--gold-primary) !important;
+    font-weight: 700;
 }
 
 .admin-content {
     flex: 1;
     padding: 2.25rem 2.5rem;
     overflow-y: auto;
-    background-color: var(--bg-base);
+    background-color: var(--bg-base) !important;
 }
 
 .stat-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-subtle) !important;
     border-radius: var(--radius-md);
     padding: 1.4rem 1.5rem;
     transition: border-color 0.2s ease, transform 0.2s ease;
 }
 
 .stat-card:hover {
-    border-color: var(--border-hover);
+    border-color: var(--border-hover) !important;
     transform: translateY(-2px);
 }
 
 .stat-card .stat-icon {
-    width: 40px;
-    height: 40px;
+    width: 42px;
+    height: 42px;
     border-radius: var(--radius-sm);
-    background: rgba(229, 184, 105, 0.1);
+    background: rgba(229, 184, 105, 0.12);
     color: var(--gold-primary);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.25rem;
+    font-size: 1.3rem;
     margin-bottom: 0.85rem;
 }
 
 .stat-card .stat-value {
-    font-size: 1.95rem;
+    font-size: 2rem;
     font-weight: 800;
-    color: var(--text-pure);
+    color: var(--text-pure) !important;
     line-height: 1.1;
     margin-bottom: 0.25rem;
     letter-spacing: -0.02em;
+    font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
 }
 
 .stat-card .stat-label {
     color: var(--text-muted);
-    font-size: 0.85rem;
-    font-weight: 500;
+    font-size: 0.88rem;
+    font-weight: 600;
 }
 
 /* Quick Action Tiles */
 .quick-action-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
+    background: var(--bg-card) !important;
+    border: 1px solid var(--border-subtle) !important;
     border-radius: var(--radius-sm);
-    padding: 1.2rem;
+    padding: 1.25rem;
     transition: all 0.18s ease;
     display: block;
 }
 
 .quick-action-card:hover {
-    background: var(--bg-card-hover);
-    border-color: var(--gold-primary);
+    background: var(--bg-card-hover) !important;
+    border-color: var(--gold-primary) !important;
     transform: translateY(-2px);
 }
 
@@ -771,29 +834,29 @@ a:hover {
     border: 1px solid var(--border-subtle) !important;
     color: var(--text-pure) !important;
     border-radius: var(--radius-sm);
-    padding: 0.65rem 0.85rem;
-    font-size: 0.92rem;
+    padding: 0.68rem 0.9rem;
+    font-size: 0.95rem;
 }
 
 .form-control:focus, .form-select:focus {
     border-color: var(--gold-primary) !important;
-    box-shadow: 0 0 0 3px rgba(229, 184, 105, 0.15) !important;
+    box-shadow: 0 0 0 3px rgba(229, 184, 105, 0.18) !important;
     color: var(--text-pure) !important;
 }
 
 label {
-    color: var(--text-muted);
-    font-weight: 500;
-    font-size: 0.88rem;
-    margin-bottom: 0.35rem;
+    color: var(--text-main);
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
 }
 
 /* Footer */
 .site-footer {
-    background: var(--bg-surface);
-    border-top: 1px solid var(--border-subtle);
+    background: var(--bg-surface) !important;
+    border-top: 1px solid var(--border-subtle) !important;
     color: var(--text-muted);
     padding: 2rem 0;
     margin-top: auto;
-    font-size: 0.88rem;
+    font-size: 0.9rem;
 }
