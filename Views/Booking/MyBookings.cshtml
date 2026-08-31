@@ -1,4 +1,4 @@
-﻿@model List<MovieBookingPro.DTOs.BookingDto>
+@model List<MovieBookingPro.DTOs.BookingDto>
 @{
     ViewData["Title"] = "My Bookings";
 }
@@ -32,7 +32,7 @@
                     <div class="panel h-100 position-relative" style="border-left: 3px solid @(booking.Status == "Confirmed" ? "var(--status-confirmed)" : "var(--status-cancelled)");">
                         <div class="d-flex justify-content-between align-items-start gap-3 mb-3">
                             <div>
-                                <span class="text-muted small font-monospace">#CIN-@booking.BookingId.ToString("D5")</span>
+                                <span class="text-muted small font-monospace">#NEST-@booking.BookingId.ToString("D5")</span>
                                 <h4 class="text-light fw-bold mb-1">@booking.MovieTitle</h4>
                                 <p class="text-muted small mb-0">
                                     @booking.TheatreName &bull; @booking.ScreenName

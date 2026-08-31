@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MovieBookingPro.Models;
 
@@ -21,47 +21,55 @@ namespace MovieBookingPro.DAL
                 }
             }
 
-            // 2. Admin User
-            const string adminEmail = "admin@cinebook.com";
+            // 2. Admin Users
+            string[] adminEmails = { "admin@movienest.com", "admin@cinebook.com" };
             const string adminPassword = "Admin@123";
-            var adminUser = await userManager.FindByEmailAsync(adminEmail);
-            if (adminUser == null)
+
+            foreach (var email in adminEmails)
             {
-                adminUser = new ApplicationUser
+                var adminUser = await userManager.FindByEmailAsync(email);
+                if (adminUser == null)
                 {
-                    UserName = adminEmail,
-                    Email = adminEmail,
-                    FullName = "System Administrator",
-                    EmailConfirmed = true
-                };
-                var result = await userManager.CreateAsync(adminUser, adminPassword);
-                if (result.Succeeded)
+                    adminUser = new ApplicationUser
+                    {
+                        UserName = email,
+                        Email = email,
+                        FullName = "System Administrator",
+                        EmailConfirmed = true
+                    };
+                    var result = await userManager.CreateAsync(adminUser, adminPassword);
+                    if (result.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(adminUser, "Admin");
+                    }
+                }
+                else if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
                 {
                     await userManager.AddToRoleAsync(adminUser, "Admin");
                 }
             }
-            else if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
-            {
-                await userManager.AddToRoleAsync(adminUser, "Admin");
-            }
 
             // 3. Demo Customer User
-            const string customerEmail = "customer@cinebook.com";
+            string[] customerEmails = { "customer@movienest.com", "customer@cinebook.com" };
             const string customerPassword = "Customer@123";
-            var customerUser = await userManager.FindByEmailAsync(customerEmail);
-            if (customerUser == null)
+
+            foreach (var email in customerEmails)
             {
-                customerUser = new ApplicationUser
+                var customerUser = await userManager.FindByEmailAsync(email);
+                if (customerUser == null)
                 {
-                    UserName = customerEmail,
-                    Email = customerEmail,
-                    FullName = "John Doe",
-                    EmailConfirmed = true
-                };
-                var result = await userManager.CreateAsync(customerUser, customerPassword);
-                if (result.Succeeded)
-                {
-                    await userManager.AddToRoleAsync(customerUser, "Customer");
+                    customerUser = new ApplicationUser
+                    {
+                        UserName = email,
+                        Email = email,
+                        FullName = "John Doe",
+                        EmailConfirmed = true
+                    };
+                    var result = await userManager.CreateAsync(customerUser, customerPassword);
+                    if (result.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(customerUser, "Customer");
+                    }
                 }
             }
 

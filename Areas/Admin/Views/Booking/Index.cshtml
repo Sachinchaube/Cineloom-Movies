@@ -1,4 +1,4 @@
-﻿@model List<MovieBookingPro.DTOs.BookingDto>
+@model List<MovieBookingPro.DTOs.BookingDto>
 @{
     ViewData["Title"] = "Customer Bookings";
 }
@@ -30,7 +30,7 @@
                 @foreach (var item in Model)
                 {
                     <tr>
-                        <td><span class="font-monospace text-light">#CIN-@item.BookingId.ToString("D5")</span></td>
+                        <td><span class="font-monospace text-light">#NEST-@item.BookingId.ToString("D5")</span></td>
                         <td><strong class="text-light">@item.UserName</strong></td>
                         <td>@item.MovieTitle</td>
                         <td><span class="text-muted small">@item.TheatreName &bull; @item.ScreenName</span></td>

@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Identity
 @inject SignInManager<MovieBookingPro.Models.ApplicationUser> SignInManager
 @inject UserManager<MovieBookingPro.Models.ApplicationUser> UserManager
 
@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - CineLoom</title>
+    <title>@ViewData["Title"] - MovieNest</title>
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +21,7 @@
             <div class="container">
                 <a class="navbar-brand font-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <span class="brand-mark"><i class="bi bi-film"></i></span>
-                    Cine<span>Loom</span>
+                    Movie<span>Nest</span>
                 </a>
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -100,7 +100,7 @@
             <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
                 <div class="d-flex align-items-center gap-2">
                     <span class="brand-mark" style="width: 24px; height: 24px; font-size: 0.75rem;"><i class="bi bi-film"></i></span>
-                    <span class="font-brand fw-bold text-light">CineLoom</span>
+                    <span class="font-brand fw-bold text-light">MovieNest</span>
                     <span class="text-muted small">&copy; @DateTime.Now.Year. All rights reserved.</span>
                 </div>
                 <div class="d-flex gap-4 small text-muted">

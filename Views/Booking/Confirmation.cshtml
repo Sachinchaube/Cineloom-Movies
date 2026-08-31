@@ -1,4 +1,4 @@
-﻿@model MovieBookingPro.DTOs.BookingDto
+@model MovieBookingPro.DTOs.BookingDto
 @{
     ViewData["Title"] = "Booking Confirmation";
 }
@@ -9,7 +9,7 @@
             <div class="ticket-receipt shadow-lg">
                 <div class="ticket-receipt-head text-center">
                     <span class="badge-confirmed d-inline-block mb-2">Booking Confirmed</span>
-                    <h4 class="text-light fw-bold mb-0">CineLoom Admission Pass</h4>
+                    <h4 class="text-light fw-bold mb-0">MovieNest Admission Pass</h4>
                 </div>
 
                 <div class="ticket-receipt-body">
@@ -42,7 +42,7 @@
                     <div class="d-flex justify-content-between align-items-center mb-4">
                         <div>
                             <span class="text-muted small d-block">Booking Reference</span>
-                            <span class="font-brand fw-bold text-light fs-5">#CIN-@Model.BookingId.ToString("D5")</span>
+                            <span class="font-brand fw-bold text-light fs-5">#NEST-@Model.BookingId.ToString("D5")</span>
                         </div>
                         <div class="text-end">
                             <span class="text-muted small d-block">Total Paid</span>
@@ -52,7 +52,7 @@
 
                     <div class="text-center p-3 rounded-2 bg-dark border border-secondary border-opacity-25 mb-4">
                         <div class="text-muted small">Barcode reference for automated turnstile entry</div>
-                        <div class="text-light fw-bold font-monospace fs-6 mt-1">CIN-@Model.BookingId.ToString("D5")-@Model.ShowId-@Model.SeatCount</div>
+                        <div class="text-light fw-bold font-monospace fs-6 mt-1">NEST-@Model.BookingId.ToString("D5")-@Model.ShowId-@Model.SeatCount</div>
                     </div>
 
                     <div class="d-flex gap-3 flex-wrap">
