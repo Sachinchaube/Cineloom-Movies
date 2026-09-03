@@ -186,50 +186,57 @@ namespace MovieBookingPro.DAL
                 await context.SaveChangesAsync();
             }
 
-            // 6. Show Schedules
-            if (!await context.ShowSchedules.AnyAsync())
+            // 6. Show Schedules (Ensure upcoming shows exist for all movies)
+            if (!await context.ShowSchedules.AnyAsync(s => s.ShowDate >= DateTime.Today))
             {
                 var allMovies = await context.Movies.ToListAsync();
                 var allScreens = await context.Screens.Include(s => s.Theatre).ToListAsync();
 
-                var shows = new List<ShowSchedule>();
-                var today = DateTime.Today;
-
-                var times = new[]
+                if (allMovies.Count > 0 && allScreens.Count > 0)
                 {
-                    new TimeSpan(10, 0, 0),
-                    new TimeSpan(13, 30, 0),
-                    new TimeSpan(17, 0, 0),
-                    new TimeSpan(20, 30, 0)
-                };
+                    var shows = new List<ShowSchedule>();
+                    var today = DateTime.Today;
 
-                var prices = new[] { 250m, 350m, 450m, 300m };
-
-                for (int dayOffset = 0; dayOffset <= 3; dayOffset++)
-                {
-                    var showDate = today.AddDays(dayOffset);
-
-                    for (int i = 0; i < allScreens.Count && i < allMovies.Count; i++)
+                    var times = new[]
                     {
-                        var movie = allMovies[i % allMovies.Count];
-                        var screen = allScreens[i];
+                        new TimeSpan(10, 30, 0),
+                        new TimeSpan(14, 0, 0),
+                        new TimeSpan(17, 30, 0),
+                        new TimeSpan(21, 0, 0)
+                    };
 
-                        for (int t = 0; t < times.Length; t++)
+                    var prices = new[] { 250m, 350m, 450m, 300m, 400m };
+
+                    for (int dayOffset = 0; dayOffset <= 6; dayOffset++)
+                    {
+                        var showDate = today.AddDays(dayOffset);
+
+                        for (int m = 0; m < allMovies.Count; m++)
                         {
-                            shows.Add(new ShowSchedule
+                            var movie = allMovies[m];
+                            
+                            // Each movie gets scheduled across 2 to 3 distinct screens per day
+                            for (int sIdx = 0; sIdx < 3; sIdx++)
                             {
-                                MovieId = movie.MovieId,
-                                ScreenId = screen.ScreenId,
-                                ShowDate = showDate,
-                                ShowTime = times[t],
-                                Price = prices[t % prices.Length]
-                            });
+                                var screen = allScreens[(m * 2 + sIdx) % allScreens.Count];
+                                var time = times[(m + sIdx) % times.Length];
+                                var price = prices[(m + sIdx) % prices.Length];
+
+                                shows.Add(new ShowSchedule
+                                {
+                                    MovieId = movie.MovieId,
+                                    ScreenId = screen.ScreenId,
+                                    ShowDate = showDate,
+                                    ShowTime = time,
+                                    Price = price
+                                });
+                            }
                         }
                     }
-                }
 
-                await context.ShowSchedules.AddRangeAsync(shows);
-                await context.SaveChangesAsync();
+                    await context.ShowSchedules.AddRangeAsync(shows);
+                    await context.SaveChangesAsync();
+                }
             }
         }
     }
