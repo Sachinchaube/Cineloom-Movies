@@ -5,33 +5,50 @@
     ViewData["Title"] = movie.Title;
 }
 
-<!-- Movie Header Section -->
-<div class="py-5 border-bottom" style="background: linear-gradient(180deg, #101622 0%, #0a0d14 100%); border-color: var(--border-subtle) !important;">
-    <div class="container py-3">
+<!-- Movie Header Section with Ambient Background -->
+<div class="py-5 border-bottom position-relative" style="background: linear-gradient(180deg, #101726 0%, #090c12 100%); border-color: var(--border-subtle) !important;">
+    <div class="container py-3 position-relative" style="z-index: 2;">
         <div class="row g-5 align-items-center">
             <div class="col-md-4 col-lg-3 text-center text-md-start">
-                <div class="movie-card shadow-lg">
-                    <img src="@(string.IsNullOrWhiteSpace(movie.PosterUrl) ? "https://placehold.co/400x600/101622/94a3b8?text=" + Uri.EscapeDataString(movie.Title) : movie.PosterUrl)" class="img-fluid rounded-2" alt="@movie.Title" style="aspect-ratio: 2/3; object-fit: cover; max-height: 380px;" />
+                <div class="movie-card shadow-lg" style="border: 2px solid rgba(229, 184, 105, 0.35) !important;">
+                    <img src="@(string.IsNullOrWhiteSpace(movie.PosterUrl) ? "https://placehold.co/400x600/101622/94a3b8?text=" + Uri.EscapeDataString(movie.Title) : movie.PosterUrl)" class="img-fluid rounded-2 w-100" alt="@movie.Title" style="aspect-ratio: 2/3; object-fit: cover; max-height: 400px;" />
                 </div>
             </div>
             <div class="col-md-8 col-lg-9">
                 <div class="d-flex flex-wrap gap-2 align-items-center mb-3">
-                    <span class="badge-genre genre-active">@movie.Genre</span>
+                    <span class="badge-genre genre-active px-3 py-1">@movie.Genre</span>
                     <span class="badge-rating"><i class="bi bi-star-fill text-gold"></i> 9.3 / 10</span>
                 </div>
-                <h1 class="display-5 fw-bold text-light mb-3">@movie.Title</h1>
-                <div class="d-flex flex-wrap gap-4 text-muted mb-4 fs-6">
-                    <div>Language: <strong class="text-light">@movie.Language</strong></div>
-                    <div>Runtime: <strong class="text-light">@movie.DurationInMinutes minutes</strong></div>
-                    <div>Release: <strong class="text-light">@movie.ReleaseDate.ToString("dd MMM yyyy")</strong></div>
+
+                <h1 class="display-4 fw-bold text-white mb-3" style="line-height: 1.15;">@movie.Title</h1>
+
+                <!-- Metadata Chips -->
+                <div class="d-flex flex-wrap gap-3 mb-4">
+                    <div class="meta-chip">
+                        <i class="bi bi-translate"></i>
+                        <span>Language: <strong>@movie.Language</strong></span>
+                    </div>
+                    <div class="meta-chip">
+                        <i class="bi bi-clock"></i>
+                        <span>Runtime: <strong>@movie.DurationInMinutes min</strong></span>
+                    </div>
+                    <div class="meta-chip">
+                        <i class="bi bi-calendar-event"></i>
+                        <span>Release Date: <strong>@movie.ReleaseDate.ToString("dd MMM yyyy")</strong></span>
+                    </div>
                 </div>
+
+                <!-- Synopsis with Crystal-Clear Contrast -->
                 @if (!string.IsNullOrWhiteSpace(movie.Description))
                 {
-                    <p class="text-muted fs-6 mb-4" style="max-width: 750px; line-height: 1.7;">@movie.Description</p>
+                    <p class="fs-5 mb-4 text-white text-opacity-90" style="max-width: 800px; line-height: 1.7; font-weight: 400;">
+                        @movie.Description
+                    </p>
                 }
+
                 <div>
-                    <a href="#showtimesSection" class="btn btn-cinema-gold">
-                        <i class="bi bi-ticket-perforated me-1"></i> View Available Showtimes
+                    <a href="#showtimesSection" class="btn btn-cinema-gold py-3 px-4 fs-6">
+                        <i class="bi bi-ticket-perforated fs-5"></i> View Available Showtimes
                     </a>
                 </div>
             </div>
@@ -42,19 +59,19 @@
 <div class="container py-5" id="showtimesSection">
     <div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom" style="border-color: var(--border-subtle) !important;">
         <div>
-            <span class="text-gold fw-bold text-uppercase small" style="letter-spacing: 0.05em;">Step 1</span>
-            <h2 class="mb-0 mt-1">Available Theatres & Schedules</h2>
+            <span class="text-gold fw-bold text-uppercase small" style="letter-spacing: 0.08em;">Step 1: Select Showtime</span>
+            <h2 class="mb-0 mt-1 text-white fw-bold">Available Theatres & Schedules</h2>
         </div>
-        <div class="text-muted small">
-            Real-time seat status
+        <div class="text-white small d-flex align-items-center gap-1">
+            <i class="bi bi-circle-fill text-success" style="font-size: 0.55rem;"></i> Live Seat Status
         </div>
     </div>
 
     @if (shows == null || shows.Count == 0)
     {
         <div class="panel text-center py-5">
-            <i class="bi bi-calendar-x fs-1 text-muted d-block mb-3"></i>
-            <h5 class="text-light">No Upcoming Shows</h5>
+            <i class="bi bi-calendar-x fs-1 text-gold d-block mb-3"></i>
+            <h5 class="text-white fw-bold">No Upcoming Shows Scheduled</h5>
             <p class="text-muted mb-0">There are no showtimes scheduled for this title currently. Please check back soon.</p>
         </div>
     }
@@ -66,12 +83,12 @@
             <div class="panel mb-4">
                 <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 pb-3 mb-3 border-bottom" style="border-color: var(--border-subtle) !important;">
                     <div class="d-flex align-items-center gap-3">
-                        <div class="p-2 rounded bg-dark border border-secondary border-opacity-25 text-gold fs-5">
+                        <div class="p-2 rounded bg-dark border border-secondary border-opacity-25 text-gold fs-4">
                             <i class="bi bi-building"></i>
                         </div>
                         <div>
-                            <h5 class="mb-0 text-light fw-bold">@theatreGroup.Key</h5>
-                            <small class="text-muted">Multiplex Location</small>
+                            <h5 class="mb-0 text-white fw-bold">@theatreGroup.Key</h5>
+                            <small class="text-muted">Multiplex Complex</small>
                         </div>
                     </div>
                 </div>
@@ -84,13 +101,13 @@
                             {
                                 <a asp-controller="Booking" asp-action="Create" asp-route-showId="@show.ShowId" class="text-decoration-none">
                                     <div class="d-flex justify-content-between align-items-center gap-3 mb-1">
-                                        <span class="fw-bold fs-5 text-light">@show.ShowTime.ToString(@"hh\:mm")</span>
-                                        <span class="text-gold fw-bold">₹@show.Price</span>
+                                        <span class="fw-bold fs-5 text-white">@show.ShowTime.ToString(@"hh\:mm")</span>
+                                        <span class="text-gold fw-bold fs-6">₹@show.Price</span>
                                     </div>
-                                    <div class="small text-muted mb-1">@show.ShowDate.ToString("ddd, dd MMM")</div>
+                                    <div class="small text-white mb-1">@show.ShowDate.ToString("ddd, dd MMM")</div>
                                     <div class="small text-muted">@show.ScreenName</div>
-                                    <div class="small text-success mt-1">
-                                        @show.SeatsAvailable seats left
+                                    <div class="small text-success fw-bold mt-1">
+                                        <i class="bi bi-check-circle me-1"></i>@show.SeatsAvailable seats left
                                     </div>
                                 </a>
                             }
@@ -102,7 +119,7 @@
                                         <span class="text-muted">₹@show.Price</span>
                                     </div>
                                     <div class="small text-muted">@show.ShowDate.ToString("ddd, dd MMM") &bull; @show.ScreenName</div>
-                                    <div class="small text-danger mt-1">Sold Out</div>
+                                    <div class="small text-danger fw-bold mt-1">Sold Out</div>
                                 </div>
                             }
                         </div>
@@ -117,8 +134,8 @@
     {
         <div class="mt-5 pt-4">
             <div class="d-flex align-items-center justify-content-between mb-4 pb-2 border-bottom" style="border-color: var(--border-subtle) !important;">
-                <h3 class="mb-0">Similar Titles You Might Like</h3>
-                <a asp-controller="Movie" asp-action="Index" class="text-muted small">View all</a>
+                <h3 class="mb-0 text-white fw-bold">Similar Titles You Might Like</h3>
+                <a asp-controller="Movie" asp-action="Index" class="text-gold small fw-bold">View all titles &rarr;</a>
             </div>
 
             <div class="row g-4">
@@ -130,11 +147,11 @@
                                 <div class="movie-poster-wrap">
                                     <img src="@(string.IsNullOrWhiteSpace(rec.PosterUrl) ? "https://placehold.co/400x600/101622/94a3b8?text=" + Uri.EscapeDataString(rec.Title) : rec.PosterUrl)" class="movie-poster" alt="@rec.Title" />
                                     <div class="movie-poster-overlay">
-                                        <div class="btn btn-cinema-gold btn-sm w-100 mb-2">Book</div>
+                                        <div class="btn btn-cinema-gold btn-sm w-100 mb-2">Book Tickets</div>
                                     </div>
                                 </div>
                                 <div class="movie-card-body">
-                                    <h6 class="movie-card-title" title="@rec.Title">@rec.Title</h6>
+                                    <h6 class="movie-card-title text-white" title="@rec.Title">@rec.Title</h6>
                                     <div class="movie-card-meta">@rec.Language &bull; @rec.DurationInMinutes min</div>
                                     <span class="badge-genre">@rec.Genre</span>
                                 </div>
